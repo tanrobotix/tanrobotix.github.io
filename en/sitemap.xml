@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://tanrobotix.github.io/en/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="https://tanrobotix.github.io/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://tanrobotix.github.io/en/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://tanrobotix.github.io/en/post/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="https://tanrobotix.github.io/post/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://tanrobotix.github.io/en/post/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://tanrobotix.github.io/en/categories/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="https://tanrobotix.github.io/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://tanrobotix.github.io/en/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://tanrobotix.github.io/en/about/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="https://tanrobotix.github.io/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://tanrobotix.github.io/en/about/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://tanrobotix.github.io/en/tags/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="https://tanrobotix.github.io/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://tanrobotix.github.io/en/tags/"
+                />
+  </url>
+  
+</urlset>
