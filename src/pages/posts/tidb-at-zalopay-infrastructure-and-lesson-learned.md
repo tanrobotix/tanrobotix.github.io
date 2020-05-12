@@ -18,11 +18,11 @@ ZaloPay is a mobile payment application serving user's daily life and business n
 
 Similar to AliPay which is one of three tenets of the “iron triangle” (aka e-commerce and logistics). GrabPay is as an enabler on the Grab ecosystem and WeChat Pay is on a social media platform.
 
-In turn, Zalo is a key product of the Vietnamese conglomerate VNG Coporation. ZaloPay is built on the top of [Zalo](https://zalo.me), the most popular messenger app in Vietnam which was launched in 2012, with > 100M active users so far.
+In turn, Zalo is a key product of the Vietnamese conglomerate VNG. ZaloPay is built on the top of [Zalo](https://zalo.me), the most popular messenger app in Vietnam which was launched in 2012, with > 100M active users so far.
 
 ![ZaloPay](/images/zalopay.png)
 
-ZaloPay ranked as the 3rd payment application of the year at the 2018 Tech Awards ceremony held by [VnExpress)](https://vnexpress.vn) newspaper (The most common newspaper in Vietnam). While competitors MoMo took the top spot, followed by ViettelPay, in the recently time, the rising  reign of GrabPay by Moca, VinID powered by VinGroup, AirPay by SEA,... making the the game more intense.
+ZaloPay ranked as the 3rd payment application of the year at the 2018 Tech Awards ceremony held by [VnExpress)](https://vnexpress.vn) newspaper (The most common newspaper in Vietnam). While competitors MoMo took the top spot, followed by ViettelPay, in the recent time, the rising reign of GrabPay by Moca, VinID powered by VinGroup, AirPay by SEA,… making the game more intense.
 
 ***
 
@@ -42,12 +42,11 @@ TiDB ("Ti" stands for Titanium) is an open-source NewSQL database that supports 
 
 #### Distributed Transactions with Strong Consistency
 
-> TiDB internally shards tables into small range-based chunks that we refer to as "regions". Each region defaults to approximately 100MiB in size, and TiDB uses a Two-phase commit internally to ensure that regions are maintained in a transactionally consistent way.
+> TiDB internally shards tables into small range-based chunks that we refer to as “regions”. Each region defaults to approximately 100MiB in size, and TiDB uses a Two-phase commit internally to ensure that regions are maintained in a transactionally consistent way.
 
 #### Cloud Native
 
-> TiDB is designed to work in the cloud -- public, private, or hybrid -- making deployment, provisioning, operations, and maintenance simple.
->The storage layer of TiDB, called TiKV, became a Cloud Native Computing Foundation member project in 2018. The architecture of the TiDB platform also allows SQL processing and storage to be scaled independently of each other in a very cloud-friendly manner.
+> TiDB is designed to work in the cloud – public, private, or hybrid – making deployment, provisioning, operations, and maintenance simple. The storage layer of TiDB, called TiKV, became a Cloud Native Computing Foundation member project in 2018. The architecture of the TiDB platform also allows SQL processing and storage to be scaled independently of each other in a very cloud-friendly manner.
 
 #### Minimize ETL
 
@@ -56,7 +55,7 @@ TiDB ("Ti" stands for Titanium) is an open-source NewSQL database that supports 
 #### High Availability
 
 > TiDB uses the Raft consensus algorithm to ensure that data is highly available and safely replicated throughout storage in Raft groups. In the event of failure, a Raft group will automatically elect a new leader for the failed member, and self-heal the TiDB cluster without any required manual intervention. Failure and self-healing operations are also transparent to applications.
-
+> 
 ***
 
 ### Why we choose TiDB over other databases?
@@ -129,10 +128,7 @@ TiDB architecture has four main components:
 
 ### What can TiDB do on ZaloPay Platform infrastructure?
 
-The E-Wallet gambling of the giants in technologies is more intensive than ever before. As the business is booming, we have to be careful in all of our decisions to make our infrastructure an example to be followed by other teams. To be steady enough to serve the booming business, millions of users , we have to make many difficult decisions and make a lot of changes in the backend and infrastructure.
-As our businesses are growing so fast day by day, we can easily spot that our infrastructure is the biggest obstacle in our development. Luckily for us, almost the technical things in our roadmap were carefully chosen from the very beginning. Taking database systems for instance, we do not migrate anything to the new database system.
-In our search for the database solutions for ZaloPay, we found TiDB. TiDB is implemented in Go and Rust, matching our product implementation. Further, the PingCAP team is committed to the open source community, friendly to work with and is very responsive. For these reasons, we bet our database on TiDB.
-At ZaloPay, we use TiDB as a core database to store most of the payment transaction data, billing, config data, and customer data of many services dots (such as billing, travelling, and f&b integration). At the present time, we have more than 20 nodes in our production system, storing a lot of significant data. We're running TiDB and our other product on-premise (bare machine). In the future, we're planning to add more and more automation solutions for our product as it can catch up with the new technology trend as well as our business.
+The E-Wallet gambling of the giants in technologies is more intensive than ever before. As the business is booming, we have to be careful in all of our decisions to make our infrastructure an example to be followed by other teams. To be steady enough to serve the booming business, millions of users, we have to make many difficult decisions and make a lot of changes in the backend and infrastructure. As our businesses are growing so fast day by day, we can easily spot that our infrastructure is the biggest obstacle in our development. Luckily for us, almost the technical things in our roadmap were carefully chosen from the very beginning. Taking database systems for instance, we do not migrate anything to the new database system. In our search for the database solutions for ZaloPay, we found TiDB. TiDB is implemented in Go and Rust, matching our product implementation. Further, the PingCAP team is committed to the open source community, friendly to work with and is very responsive. For these reasons, we bet our database on TiDB. At ZaloPay, we use TiDB as a core database to store most of the payment transaction data, billing, config data, and customer data of many services dots (such as billing, travelling, and f&b integration). At the present time, we have more than 20 nodes in our production system, storing a lot of significant data. We're running TiDB and our other product on-premise (bare machine). In the future, we're planning to add more and more automation solutions for our product as it can catch up with the new technology trend as well as our business.
 Here is one of our cluster statistics:
 
 ![TiDB Cluster Statistics](/images/sysinfo.png)
@@ -141,8 +137,9 @@ Here is one of our cluster statistics:
 
 ### Lesson learned while using TiDB
 
-Because we don't have much experience with TiDB, we made a significant miscalculation. At our development/sandbox/staging environment, some applications were granted permission to write data directly into the TiKV cluster. As shown in the figure, the application and TiDB are both writing data into the TiKV cluster, which is not endorsed. Other applications could easily break TiDB data (called Regions). Many Regions were shattered, and could not be retrieved.
-TiKV then went into a downright panic, and the TiDB server couldn’t reach TiKV. We tried to recover it in many ways but couldn’t. Then we're finding the way to reach the PingCAP support staff. Thankfully, PingCAP engineers came to our aid. I was introduced to the TiDB VPE (Vice President of Engineering) and many Senior Engineers on TiKV/TiDB Team, all of whom gave us invaluable help.. PingCAP actually takes every user’s data seriously! TiDB uses the transactional KV API. Do not use these two APIs together in the same cluster; otherwise, they might corrupt each other’s data. The VP of Engineering said that they will provide a mechanism to prevent users from mix-using the two APIs in a single cluster in the future.
+Because we don't have much experience with TiDB, we made a significant miscalculation. At our development/sandbox/staging environment, some applications were granted permission to write data directly into the TiKV cluster to use KV resources. As shown in the figure, the application and TiDB are both writing data into the TiKV cluster, which is not endorsed. Other applications could easily break TiDB data (called Regions). Many Regions were shattered, and could not be retrieved. TiKV then went into a downright panic, and the TiDB server couldn’t reach TiKV. We tried to recover it in many ways but couldn’t. Then we're finding the way to reach the PingCAP support staff. Thankfully, PingCAP engineers came to our aid. I was introduced to the TiDB VPE (Vice President of Engineering) and many Senior Engineers on TiKV/TiDB Team, all of whom gave us invaluable help. PingCAP actually takes every user’s data seriously! TiDB uses the DistSQL API and KV API. Do not use these two APIs together in the same cluster; otherwise, they might corrupt each other’s data. The VP of Engineering said that they will provide a mechanism to prevent users from mix-using the two APIs in a single cluster in the future.
+
+![TiDB miscalculation](/images/picture-2.png)
 
 ***
 
@@ -158,5 +155,6 @@ TiDB acts as a MySQL 5.7 server and supports MySQL protocol and a majority of My
 
 ### Postscript
 
-We would like to thank again PingCAP members, who has wholeheartedly helped us learned about and work with TiDB.
+We would like to thank again PingCAP members, who have wholeheartedly helped us learn about and work with TiDB.
+
 *This article refers to many original documentations from PingCAP, Wikipedia, db-engine, and others...*
