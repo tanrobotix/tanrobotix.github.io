@@ -159,4 +159,4 @@ We would like to thank again PingCAP members, who have wholeheartedly helped us 
 
 *This article refers to many original documentations from PingCAP, Wikipedia, db-engine, and others...*
 
-*Extrinseco: This ariticle is posted in [PingCAP Blog](https://pingcap.com/success-stories/tidb-at-zalopay-infrastructure-lesson-learned/)*
+*Extrinseco: This article is posted in [PingCAP Blog](https://pingcap.com/success-stories/tidb-at-zalopay-infrastructure-lesson-learned/)*

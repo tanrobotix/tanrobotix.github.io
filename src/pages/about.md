@@ -11,7 +11,7 @@ template: page
 ***
 Hi there, I'm Tan  
 
-I ♥ OpenSource  (now contributing to KubeSphere, crave to be a contributor of Kubernetes,...)
+I ♥ OpenSource  (crave to be a contributor of Kubernetes,...)
 
 I'm reliable! Like Reliability stand in SRE
 

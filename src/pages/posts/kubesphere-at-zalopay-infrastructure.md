@@ -1,5 +1,5 @@
 ---
-title: 'KubeSphere allow ZaloPay Ops Team accrue more time to do other things'
+title: 'KubeSphere allows ZaloPay Ops Team to accrue more time to do other things'
 excerpt: KubeSphere allows ZaloPay Ops Team to devote more time and efforts automating management and workflow...
 date: 2020-06-22T19:20:00+07:00
 thumb_img_path: "/images/kubesphere.jpg"
@@ -39,7 +39,8 @@ We install KubeSphere on our existing Kubernetes cluster, and we have two Kubern
 ### Why We Choose KubeShpere
 Thanks to the developer-friendly web console provided by KubeSphere, we can easily monitor the resource consumption range from infrastructure to applications. Hence, we've been running merchant platform of ZaloPay on KubeSphere very steadily for half a year. KubeSphere also offers a portfolio which integrates and packages the cloud native stack, and provides out-of-box application lifecycle management, monitoring, logging, multi-tenancy, alerting and notification. As each feature and component is pluggable, we can enable them based on our needs.
 
-
+![KubeSphere Monitoring](/images/monitoring-k8s-cluster.png)
+ 
 ![KubeSphere](/images/kubesphere-bef.png)
 
 ### How We Implement DevOps
@@ -47,6 +48,7 @@ We implement the CI/CD pipeline as a typical and straightforward way, running th
 
 When everything run smoothly, the pipeline will pack the project using Docker in the fourth stage. Then it push the docker image to the Docker Registry. The fifth stage is used to deploy the docker image to the desire environment, including sandbox and production. Then it cleans the pipeline garbage and send an email notification to our team with the running result of pipeline.
 
+![SonaQube](/images/devops-flow.png)
 
 ### Code Quality in SonarQube
 We use SonarQube for static code quality analysis. The screenshot below is an example of our service analytic result from SonarQube. It helps us to quickly locate the bug and vulnerability in our code.
@@ -70,4 +72,4 @@ KubeSphere allows ZaloPay Ops Team to devote more time and efforts automating ma
 I am a big fan of open source. Open source brings developers closer in the world as we can discuss our proposals and solve our problems in a public and active community. I believe open source is the future of software and I am trying to contribute to the community. I hope KubeSphere can grow the open source community and provide a better product for it.
 
 
-*Extrinseco: This ariticle is posted in [KubeSphere Case Studies](https://kubesphere.io/case/vng/)*
+*Extrinseco: This article is posted in [KubeSphere Case Studies](https://kubesphere.io/case/vng/)*
