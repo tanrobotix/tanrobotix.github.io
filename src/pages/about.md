@@ -10,7 +10,10 @@ template: page
 ---
 ***
 Hi there, I'm Tan  
-I'm an engineer
+
+I ♥ OpenSource  (now contributing to KubeSphere, crave to be a contributor of Kubernetes,...)
+
+I'm reliable! Like Reliability stand in SRE
 
 ### About this blog
 
@@ -27,8 +30,7 @@ I write this blog to share my little knowledges about IT for general then for De
 
 ***
 
-Xin chào, tôi là Tân.  
-Tôi là một kỹ sư...
+Xin chào, tôi là Tân
 
 ### Về blog này
 

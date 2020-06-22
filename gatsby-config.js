@@ -11,6 +11,12 @@ module.exports = {
                 path: `${__dirname}/src/pages`,
             },
         },
+        // {
+        //     resolve: `gatsby-plugin-disqus`,
+        //     options: {
+        //         shortname: `tantnd`
+        //     }
+        // },
         {
             resolve: `gatsby-plugin-stackbit-static-sass`,
             options: {
@@ -30,12 +36,12 @@ module.exports = {
                 
             }
         },
-        {
-            resolve: `gatsby-plugin-draft`,
-            options: {
+        // {
+        //     resolve: `gatsby-plugin-draft`,
+        //     options: {
                 
-            }
-        },
+        //     }
+        // },
         {
             resolve: `@stackbit/gatsby-plugin-menus`,
             options: {
@@ -47,13 +53,13 @@ module.exports = {
     ]
 };
 
-module.exports = {
-    plugins: [
-      {
-        resolve: `gatsby-plugin-google-analytics`,
-        options: {
-          trackingId: "UA-97552462-2",
-        },
-      },
-    ],
-  }
+// module.exports = {
+//     plugins: [
+//       {
+//         resolve: `gatsby-plugin-google-analytics`,
+//         options: {
+//           trackingId: "UA-97552462-2",
+//         },
+//       },
+//     ],
+//   }

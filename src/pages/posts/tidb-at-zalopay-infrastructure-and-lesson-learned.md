@@ -158,3 +158,5 @@ TiDB acts as a MySQL 5.7 server and supports MySQL protocol and a majority of My
 We would like to thank again PingCAP members, who have wholeheartedly helped us learn about and work with TiDB.
 
 *This article refers to many original documentations from PingCAP, Wikipedia, db-engine, and others...*
+
+*Extrinseco: This ariticle is posted in [PingCAP Blog](https://pingcap.com/success-stories/tidb-at-zalopay-infrastructure-lesson-learned/)*
