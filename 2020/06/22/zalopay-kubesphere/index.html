@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>KubeSphere allows ZaloPay Ops Team to accrue more time to do other things | tantnd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="KubeSphere allows ZaloPay Ops Team to devote more time and efforts automating management and workflow...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KubeSphere allows ZaloPay Ops Team to accrue more time to do other things">
+<meta property="og:url" content="http://tantnd.me/2020/06/22/zalopay-kubesphere/index.html">
+<meta property="og:site_name" content="tantnd">
+<meta property="og:description" content="KubeSphere allows ZaloPay Ops Team to devote more time and efforts automating management and workflow...">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://tantnd.me/images/infra-gen.png">
+<meta property="og:image" content="http://tantnd.me/images/monitoring-k8s-cluster.png">
+<meta property="og:image" content="http://tantnd.me/images/kubesphere-bef.png">
+<meta property="og:image" content="http://tantnd.me/images/devops-flow.png">
+<meta property="og:image" content="http://tantnd.me/images/sonaqube.png">
+<meta property="og:image" content="http://tantnd.me/images/issuesk8s.png">
+<meta property="article:published_time" content="2020-06-22T12:20:00.000Z">
+<meta property="article:modified_time" content="2023-01-08T18:20:29.859Z">
+<meta property="article:author" content="tantnd">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://tantnd.me/images/infra-gen.png">
+  
+    <link rel="alternate" href="/atom.xml" title="tantnd" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">tantnd</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-zalopay-kubesphere" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      KubeSphere allows ZaloPay Ops Team to accrue more time to do other things
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="ZaloPay-Introduction"><a href="#ZaloPay-Introduction" class="headerlink" title="ZaloPay Introduction"></a>ZaloPay Introduction</h3><p>Launched in 2017, ZaloPay is built on the top of Zalo, equipped with many conveniences from Zalo’s ecosystem. There is already an ecosystem at Zalo, a significant volume of Zalo’s users (~100 million-active-user).It is relatively competitive compared to MoMo, GrabPay by Moca, ViettelPay, etc.</p>
+<p>Similar to AliPay which is one of three tenets of the “iron triangle” (aka e-commerce and logistics), GrabPay is an enabler of the Grab ecosystem and WeChat Pay is on a social media platform. ZaloPay ranked as the 3rd payment application of the year at the 2018 Tech Awards ceremony held by VnExpress, the most common newspaper in Vietnam. While the competitor MoMo took the top spot, followed by Viettel Pay, the rising players of GrabPay by Moca, VinID powered by VinGroup and AirPay by SEA have also joined the market, making the game even more intense.</p>
+<h3 id="We-are-Enthusiastic-about-New-Technologies"><a href="#We-are-Enthusiastic-about-New-Technologies" class="headerlink" title="We are Enthusiastic about New Technologies"></a>We are Enthusiastic about New Technologies</h3><p>VNG is a big company, working in a wide range of business. We are committed to using cutting-edge frameworks, technologies, and programming languages to develop our products and build infrastructure.</p>
+<p>Building and developing software applications that rely on the outdated architecture will cause various problems in scalability, resilience, observability, etc. For example, for the traditional monolithic architecture, it is very difficult to implement changes in such a large and complicated application that is tightly coupled. Besides, the monolithic architecture features terrible scalability with high technology barriers. That means it may postpone your go-to-market strategy and slow the update cycle of your products. However, the fact is that what we want is the fast development and delivery in our business and services need to respond quickly to changes.</p>
+<p>Docker and Kubernetes are undoubtedly the best technical architecture tailored for our business needs. I probably don’t need to say much about containerization and the benefits. Componentization also allows you to develop faster and more reliably; and Kubernetes automates rollouts and rollbacks, monitoring the health of your apps with probes.</p>
+<h3 id="Adopting-Kubernetes-and-KubeSphere"><a href="#Adopting-Kubernetes-and-KubeSphere" class="headerlink" title="Adopting Kubernetes and KubeSphere"></a>Adopting Kubernetes and KubeSphere</h3><p>At the end of 2018, we adopted Kubernetes as the container orchestration solution. Kubernetes helps us to declaratively manage our cluster, allowing our apps to be version controlled and easily replicated. However, the learning curve of Kubernetes is high as there are a series of solutions we need to consider, including logging, monitoring, DevOps and middleware. Actually, we have investigated the most popular tools. For example, we use EFK for logging management and adopt Jenkins as the CI&#x2F;CD engine for business update. Redis and Kafka are also used in our environment.</p>
+<p>These popular tools help us improve development and operation efficiency. Nevertheless, the biggest challenge facing us is that developers need to learn and maintain these different tools; and we need to spend more time switching back and forth between different terminals and dashboards. Hence, we started to research a centralized solution which can bring the cloud native stack within a unified web console. We compared a couple of solutions (e.g. Rancher and native Kubernetes) and KubeSphere has proven to be the most convenient one among them.</p>
+<p>We install KubeSphere on our existing Kubernetes cluster, and we have two Kubernetes clusters for sandbox and production respectively. For data privacy, our clusters are all deployed on bare metal machines. We install the highly available cluster using HAProxy to balance the traffic load.</p>
+<p><img src="/images/infra-gen.png" alt="General Infra"></p>
+<h3 id="Why-We-Choose-KubeShpere"><a href="#Why-We-Choose-KubeShpere" class="headerlink" title="Why We Choose KubeShpere"></a>Why We Choose KubeShpere</h3><p>Thanks to the developer-friendly web console provided by KubeSphere, we can easily monitor the resource consumption range from infrastructure to applications. Hence, we’ve been running merchant platform of ZaloPay on KubeSphere very steadily for half a year. KubeSphere also offers a portfolio which integrates and packages the cloud native stack, and provides out-of-box application lifecycle management, monitoring, logging, multi-tenancy, alerting and notification. As each feature and component is pluggable, we can enable them based on our needs.</p>
+<p><img src="/images/monitoring-k8s-cluster.png" alt="KubeSphere Monitoring"></p>
+<p><img src="/images/kubesphere-bef.png" alt="KubeSphere"></p>
+<h3 id="How-We-Implement-DevOps"><a href="#How-We-Implement-DevOps" class="headerlink" title="How We Implement DevOps"></a>How We Implement DevOps</h3><p>We implement the CI&#x2F;CD pipeline as a typical and straightforward way, running the merchant platform in ZaloPay. As you can see from the figure below, we run CI&#x2F;CD pipeline using KubeSphere, stitching GitLab, SonarQube, Docker, Kubernetes, and docker registry. In the first stage, the pipeline will initialize some necessary environments for the entire pipeline. Next, the pipeline will pull the source code from Gitlab by using the environment conditions (like checkout branch, deploy env, tag version). In the third stage, it will build the Golang project and trigger SonarQube to analyze the source code and check the quality. If there is nothing special or significant issue in the code, the pipeline will jump to next stage.</p>
+<p>When everything run smoothly, the pipeline will pack the project using Docker in the fourth stage. Then it push the docker image to the Docker Registry. The fifth stage is used to deploy the docker image to the desire environment, including sandbox and production. Then it cleans the pipeline garbage and send an email notification to our team with the running result of pipeline.</p>
+<p><img src="/images/devops-flow.png" alt="SonaQube"></p>
+<h3 id="Code-Quality-in-SonarQube"><a href="#Code-Quality-in-SonarQube" class="headerlink" title="Code Quality in SonarQube"></a>Code Quality in SonarQube</h3><p>We use SonarQube for static code quality analysis. The screenshot below is an example of our service analytic result from SonarQube. It helps us to quickly locate the bug and vulnerability in our code.</p>
+<p><img src="/images/sonaqube.png" alt="SonaQube"></p>
+<h3 id="Issues-We-Meet-and-Solutions"><a href="#Issues-We-Meet-and-Solutions" class="headerlink" title="Issues We Meet and Solutions"></a>Issues We Meet and Solutions</h3><p>When we installed KubeSphere, several CRDs were created, for some reason due to testing or something, I reinstalled, and deleted some resources. API server panics handling requests for a CRD with OpenAPI validation with x-kubernetes-int-or-string, etcd was also panic and crashed looply.</p>
+<p>This bug appears in Kubernetes versions smaller v1.16.2; it is not secure to upgrade Kubernetes API version and inevitably downtime. Otherwise it will not be possible to access the API; and kubectl or any controller will be terminated.</p>
+<p>Bugs are fixed in versions from v1.16.2 +. Please notice and carefully to play with production.</p>
+<p><img src="/images/issuesk8s.png" alt="Issues"></p>
+<h3 id="Testimonial"><a href="#Testimonial" class="headerlink" title="Testimonial"></a>Testimonial</h3><p>To meet the needs of centralized management of cloud native stack, we choose to use KubeSphere to strengthen the observability on top of Kubernetes. Now we are able to deploy new microservices and allocate resources within minutes. It also helps developers accelerate the time to market.</p>
+<p>KubeSphere allows ZaloPay Ops Team to devote more time and efforts automating management and workflow. It provides smooth user experiences and features a developer-friendly web console which shields the complicated underlying logic, making it easier to manipulate infrastructure resources. KubeSphere represents a fast-growing open source community in the world. KubeSphere community helps a large number of companies and organizations to easily run their business using cloud native technologies, and solve the pain points of Kubernetes itself.</p>
+<p>I am a big fan of open source. Open source brings developers closer in the world as we can discuss our proposals and solve our problems in a public and active community. I believe open source is the future of software and I am trying to contribute to the community. I hope KubeSphere can grow the open source community and provide a better product for it.</p>
+<p><em>Extrinseco: This article is posted in <a target="_blank" rel="noopener" href="https://kubesphere.io/case/vng/">KubeSphere Case Studies</a></em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://tantnd.me/2020/06/22/zalopay-kubesphere/" data-id="clcnpalra0001icn4hq0a07pl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/05/02/zalopay-tidb/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">Older</span>
+      <div class="article-nav-title">TiDB at ZaloPay infrastructure &amp; lesson learned</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 tantnd<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

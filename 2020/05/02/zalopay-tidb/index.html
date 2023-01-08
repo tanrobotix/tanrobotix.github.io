@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>TiDB at ZaloPay infrastructure &amp; lesson learned | tantnd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="At ZaloPay, we use TiDB as a core database for store almost of the payment transaction...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TiDB at ZaloPay infrastructure &amp; lesson learned">
+<meta property="og:url" content="http://tantnd.me/2020/05/02/zalopay-tidb/index.html">
+<meta property="og:site_name" content="tantnd">
+<meta property="og:description" content="At ZaloPay, we use TiDB as a core database for store almost of the payment transaction...">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://tantnd.me/images/zalopay.png">
+<meta property="og:image" content="http://tantnd.me/images/tidb-architecture.png">
+<meta property="og:image" content="http://tantnd.me/images/sysinfo.png">
+<meta property="og:image" content="http://tantnd.me/images/picture-2.png">
+<meta property="article:published_time" content="2020-05-02T08:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-08T18:20:29.859Z">
+<meta property="article:author" content="tantnd">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://tantnd.me/images/zalopay.png">
+  
+    <link rel="alternate" href="/atom.xml" title="tantnd" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">tantnd</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-zalopay-tidb" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      TiDB at ZaloPay infrastructure &amp; lesson learned
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="Introducing-ZaloPay"><a href="#Introducing-ZaloPay" class="headerlink" title="Introducing ZaloPay"></a>Introducing ZaloPay</h3><p>ZaloPay is a mobile payment application serving user’s daily life and business needs, firstly launched in 2017. It is relatively competitive compared to MoMo, GrabPay by Moca, ViettelPay, etc.</p>
+<p>Similar to AliPay which is one of three tenets of the “iron triangle” (aka e-commerce and logistics). GrabPay is as an enabler on the Grab ecosystem and WeChat Pay is on a social media platform.</p>
+<p>In turn, Zalo is a key product of the Vietnamese conglomerate VNG. ZaloPay is built on the top of <a target="_blank" rel="noopener" href="https://zalo.me/">Zalo</a>, the most popular messenger app in Vietnam which was launched in 2012, with &gt; 100M active users so far.</p>
+<p><img src="/images/zalopay.png" alt="ZaloPay"></p>
+<p>ZaloPay ranked as the 3rd payment application of the year at the 2018 Tech Awards ceremony held by <a target="_blank" rel="noopener" href="https://vnexpress.vn/">VnExpress)</a> newspaper (The most common newspaper in Vietnam). While competitors MoMo took the top spot, followed by ViettelPay, in the recent time, the rising reign of GrabPay by Moca, VinID powered by VinGroup, AirPay by SEA,… making the game more intense.</p>
+<hr>
+<h3 id="What-is-TiDB"><a href="#What-is-TiDB" class="headerlink" title="What is TiDB?"></a>What is TiDB?</h3><p><a target="_blank" rel="noopener" href="https://pingcap.com/docs/stable/overview/">TiDB</a> is developed and supported primarily by <a target="_blank" rel="noopener" href="https://pingcap.com/">PingCAP</a> Ltd. and licensed under <a target="_blank" rel="noopener" href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a>.</p>
+<p>TiDB (“Ti” stands for Titanium) is an open-source NewSQL database that supports Hybrid Transactional and Analytical Processing (HTAP) workloads. It is MySQL compatible and features horizontal scalability, strong consistency, and high availability.</p>
+<h4 id="Horizontal-Scalability"><a href="#Horizontal-Scalability" class="headerlink" title="Horizontal Scalability"></a>Horizontal Scalability</h4><p>TiDB expands both SQL processing and storage by simply adding new nodes. This makes infrastructure capacity planning both easier and more cost-effective than traditional relational databases which only scale vertically.</p>
+<h4 id="MySQL-Compatible-Syntax"><a href="#MySQL-Compatible-Syntax" class="headerlink" title="MySQL Compatible Syntax"></a>MySQL Compatible Syntax</h4><p>TiDB acts like it is a MySQL 5.7 server to your applications. You can continue to use all of the existing MySQL client libraries, and in many cases, you will not need to change a single line of code in your application. Because TiDB is built from scratch, not a MySQL fork, please check out the list of known compatibility differences.</p>
+<h4 id="Distributed-Transactions-with-Strong-Consistency"><a href="#Distributed-Transactions-with-Strong-Consistency" class="headerlink" title="Distributed Transactions with Strong Consistency"></a>Distributed Transactions with Strong Consistency</h4><p>TiDB internally shards tables into small range-based chunks that we refer to as “regions”. Each region defaults to approximately 100MiB in size, and TiDB uses a Two-phase commit internally to ensure that regions are maintained in a transactionally consistent way.</p>
+<h4 id="Cloud-Native"><a href="#Cloud-Native" class="headerlink" title="Cloud Native"></a>Cloud Native</h4><p>TiDB is designed to work in the cloud – public, private, or hybrid – making deployment, provisioning, operations, and maintenance simple. The storage layer of TiDB, called TiKV, became a Cloud Native Computing Foundation member project in 2018. The architecture of the TiDB platform also allows SQL processing and storage to be scaled independently of each other in a very cloud-friendly manner.</p>
+<h4 id="Minimize-ETL"><a href="#Minimize-ETL" class="headerlink" title="Minimize ETL"></a>Minimize ETL</h4><p>TiDB is designed to support both transaction processing (OLTP) and analytical processing (OLAP) workloads. This means that while you may have traditionally transacted on MySQL and then Extracted, Transformed and Loaded (ETL) data into a column store for analytical processing, this step is no longer required.</p>
+<h4 id="High-Availability"><a href="#High-Availability" class="headerlink" title="High Availability"></a>High Availability</h4><p>TiDB uses the Raft consensus algorithm to ensure that data is highly available and safely replicated throughout storage in Raft groups. In the event of failure, a Raft group will automatically elect a new leader for the failed member, and self-heal the TiDB cluster without any required manual intervention. Failure and self-healing operations are also transparent to applications.</p>
+<blockquote>
+</blockquote>
+<hr>
+<h3 id="Why-we-choose-TiDB-over-other-databases"><a href="#Why-we-choose-TiDB-over-other-databases" class="headerlink" title="Why we choose TiDB over other databases?"></a>Why we choose TiDB over other databases?</h3><p>Here is a comparison of the strongest candidate - MySQL - with TiDB (reference <a target="_blank" rel="noopener" href="https://db-engines.com/"><strong>DB-Engines</strong></a>)</p>
+<hr>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    table th:first-child, td:first-child {
+        border-right: 1px solid #ccc;
+    }
+    td {
+        border-top: 1px solid #ccc;
+        padding: 0.6rem;
+    }
+</style>
+
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>MySQL</strong></th>
+<th><strong>TiDB</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Description</td>
+<td>Widely used open source RDBMS</td>
+<td>TiDB is an open source distributed Hybrid Transactional&#x2F;Analytical Processing (HTAP)database that supports MySQL and Spark SQLsyntaxes.</td>
+</tr>
+<tr>
+<td>Primary database model</td>
+<td>Relational DBMS</td>
+<td>Relational DBMS</td>
+</tr>
+<tr>
+<td>Secondary database models</td>
+<td>Document store</td>
+<td>Document store</td>
+</tr>
+<tr>
+<td>Implementation language</td>
+<td>C and C++</td>
+<td>Go, Rust</td>
+</tr>
+<tr>
+<td>License</td>
+<td>OpenSource</td>
+<td>OpenSource</td>
+</tr>
+<tr>
+<td>Server operating systems</td>
+<td>FreeBSD, Linux, OS X, Solaris, Windows</td>
+<td>Linux</td>
+</tr>
+<tr>
+<td>Initial Release</td>
+<td>1995</td>
+<td>2016</td>
+</tr>
+<tr>
+<td>Developer</td>
+<td>Oracle</td>
+<td>PingCAP Ltd.</td>
+</tr>
+<tr>
+<td>Data scheme</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Typing</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>XML Support</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Secondary indexes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>SQL</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>APIs and other access methods</td>
+<td>ADO.NET, JDBC, ODBC, Proprietary native API</td>
+<td>JDBC, ODBC, Proprietary protocol</td>
+</tr>
+<tr>
+<td>Supported programming languages</td>
+<td>Ada, C, C#, C++, D, Delphi, Eiffel, Erlang, Haskell, Java, JavaScript (Node.js), Objective-C, Ocaml,Perl, PHP, Python, Ruby, Scheme, TCL</td>
+<td>Ada, C, C#, C++, D, Delphi, Eiffel, Erlang, Haskell, Java, JavaScript (Node.js), Objective-C, Ocaml, Perl, PHP, Python, Ruby, Scheme, TCL</td>
+</tr>
+<tr>
+<td>Server-side scripts (Stored procedure)</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Trigger</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Partitioning methods</td>
+<td>Horizontal partitioning, sharding with MySQL Cluster or MySQL Fabric</td>
+<td>Horizontal partitioning (by key range)</td>
+</tr>
+<tr>
+<td>Replication methods</td>
+<td>Master-master replication, Master-slave replication</td>
+<td>Uses Raft consensus algorithm to ensure data replication with strong consistency among multiple replicas.</td>
+</tr>
+<tr>
+<td>MapReduce</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Consistency concepts</td>
+<td>Immediate Consistency</td>
+<td>Immediate Consistency</td>
+</tr>
+<tr>
+<td>Foreign keys</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Transaction concepts</td>
+<td>ACID</td>
+<td>ACID</td>
+</tr>
+<tr>
+<td>Concurrency</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Durability</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>In-memory capabilities</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>User concepts</td>
+<td>Users with fine-grained authorization concept</td>
+<td>Users with fine-grained authorization concept. No user groups or roles</td>
+</tr>
+</tbody></table>
+<hr>
+<p>Every product and service has its own specific requirement to develop. After comparing the figures above, we  decided to choose TiDB</p>
+<hr>
+<h3 id="How-does-TiDB-work"><a href="#How-does-TiDB-work" class="headerlink" title="How does TiDB work?"></a>How does TiDB work?</h3><p>TiDB architecture has four main components:</p>
+<p><img src="/images/tidb-architecture.png" alt="TiDB Architecture"></p>
+<ul>
+<li><strong>TiDB Server</strong>: Sitting on top of the construction, TiDB server is responsible for the communication interface between users and the database engine server, including receiving the SQL requests, processing the SQL related logics, locating the TiKV address for storing and computing data through Placement Driver (PD), and exchanging data with TiKV.</li>
+<li><strong>TiKV Server</strong>: TiKV is a distributed transactional Key-Value engine that plays a significant role in this - storing data. TiKV uses the Raft protocol for replication to ensure data consistency and disaster recovery. Region is the basic unit of storing data in TiKV.</li>
+<li><strong>PD Server</strong>: PD is the abbreviation for Placement Driver. By embedding etcd, PD uses the Raft consensus algorithm, which allows PD to support distribution, fault-tolerance, and redundancy. PD is used for storing metadata, scheduling, load-balancing, and allocating the transaction ID.</li>
+<li><strong>TiSpark</strong>: Is built for running Apache Spark on top of TiDB&#x2F;TiKV. This layer provides a method to answer complex OLAP queries. With TiSpark, TiDB can intergrate with  big data ecosystem support OLTP and OLAP scenarios.</li>
+</ul>
+<hr>
+<h3 id="What-can-TiDB-do-on-ZaloPay-Platform-infrastructure"><a href="#What-can-TiDB-do-on-ZaloPay-Platform-infrastructure" class="headerlink" title="What can TiDB do on ZaloPay Platform infrastructure?"></a>What can TiDB do on ZaloPay Platform infrastructure?</h3><p>The E-Wallet gambling of the giants in technologies is more intensive than ever before. As the business is booming, we have to be careful in all of our decisions to make our infrastructure an example to be followed by other teams. To be steady enough to serve the booming business, millions of users, we have to make many difficult decisions and make a lot of changes in the backend and infrastructure. As our businesses are growing so fast day by day, we can easily spot that our infrastructure is the biggest obstacle in our development. Luckily for us, almost the technical things in our roadmap were carefully chosen from the very beginning. Taking database systems for instance, we do not migrate anything to the new database system. In our search for the database solutions for ZaloPay, we found TiDB. TiDB is implemented in Go and Rust, matching our product implementation. Further, the PingCAP team is committed to the open source community, friendly to work with and is very responsive. For these reasons, we bet our database on TiDB. At ZaloPay, we use TiDB as a core database to store most of the payment transaction data, billing, config data, and customer data of many services dots (such as billing, travelling, and f&amp;b integration). At the present time, we have more than 20 nodes in our production system, storing a lot of significant data. We’re running TiDB and our other product on-premise (bare machine). In the future, we’re planning to add more and more automation solutions for our product as it can catch up with the new technology trend as well as our business.<br>Here is one of our cluster statistics:</p>
+<p><img src="/images/sysinfo.png" alt="TiDB Cluster Statistics"></p>
+<hr>
+<h3 id="Lesson-learned-while-using-TiDB"><a href="#Lesson-learned-while-using-TiDB" class="headerlink" title="Lesson learned while using TiDB"></a>Lesson learned while using TiDB</h3><p>Because we don’t have much experience with TiDB, we made a significant miscalculation. At our development&#x2F;sandbox&#x2F;staging environment, some applications were granted permission to write data directly into the TiKV cluster to use KV resources. As shown in the figure, the application and TiDB are both writing data into the TiKV cluster, which is not endorsed. Other applications could easily break TiDB data (called Regions). Many Regions were shattered, and could not be retrieved. TiKV then went into a downright panic, and the TiDB server couldn’t reach TiKV. We tried to recover it in many ways but couldn’t. Then we’re finding the way to reach the PingCAP support staff. Thankfully, PingCAP engineers came to our aid. I was introduced to the TiDB VPE (Vice President of Engineering) and many Senior Engineers on TiKV&#x2F;TiDB Team, all of whom gave us invaluable help. PingCAP actually takes every user’s data seriously! TiDB uses the DistSQL API and KV API. Do not use these two APIs together in the same cluster; otherwise, they might corrupt each other’s data. The VP of Engineering said that they will provide a mechanism to prevent users from mix-using the two APIs in a single cluster in the future.</p>
+<p><img src="/images/picture-2.png" alt="TiDB miscalculation"></p>
+<hr>
+<h3 id="Recommendation-for-other-TiDB-users"><a href="#Recommendation-for-other-TiDB-users" class="headerlink" title="Recommendation for other TiDB users"></a>Recommendation for other TiDB users</h3><p>TiDB acts as a MySQL 5.7 server and supports MySQL protocol and a majority of MySQL syntax. You can use all of the existing MySQL client’s libraries. In many cases, you won’t need to change a single line of code in your application.</p>
+<p><strong>But</strong>, as you may already know, “act like” isn’t the same meaning as “totally like” Because TiDB is built from scratch, not a MySQL fork, a new TiDB user might not carefully read the whole documentation, thinking that TiDB syntax is completely like MySQL syntax. Sometimes, you may meet up with some unexpected limitations with it when you do complex queries, or when you use interface tools for MySQL native like MySQL Workbench… or when you try to backup and restore TiDB with mysqldump (which isn’t recommended). … If you encounter any issues, take a look at  <a target="_blank" rel="noopener" href="https://pingcap.com/docs/stable/reference/tools/user-guide/">toolkits</a> (Mydumper, Syncer, Loader, TiDB Lighting,…) that PingCAP has optimized for TiDB.</p>
+<p><strong>TL;DR</strong>: TiDB server acts like MySQL 5.7 server, but is not entirely equivalent with MySQL. Just make sure you know what you are doing when you use tools or run SQL queries (which run well with MySQL). Also check out the list of <a target="_blank" rel="noopener" href="https://pingcap.com/docs/v3.0/reference/mysql-compatibility/">know compatibility differences</a>. If necessary, use PingCAP’s optimized <a target="_blank" rel="noopener" href="https://pingcap.com/docs/stable/reference/tools/user-guide/">toolkits</a> to interact with TiDB.</p>
+<hr>
+<h3 id="Postscript"><a href="#Postscript" class="headerlink" title="Postscript"></a>Postscript</h3><p>We would like to thank again PingCAP members, who have wholeheartedly helped us learn about and work with TiDB.</p>
+<p><em>This article refers to many original documentations from PingCAP, Wikipedia, db-engine, and others…</em></p>
+<p><em>Extrinseco: This article is posted in <a target="_blank" rel="noopener" href="https://pingcap.com/success-stories/tidb-at-zalopay-infrastructure-lesson-learned/">PingCAP Blog</a></em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://tantnd.me/2020/05/02/zalopay-tidb/" data-id="clcnpalrd0002icn45t0tcv15" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/22/zalopay-kubesphere/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">Newer</span>
+      <div class="article-nav-title">
+        
+          KubeSphere allows ZaloPay Ops Team to accrue more time to do other things
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 tantnd<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
