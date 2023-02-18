@@ -91,7 +91,14 @@ We do: Submit proposals -> Raise fund -> Realize project -> Deliver Cardano Ecos
 - Optimize the ZaloPay MEP with KubeSphere Team:
   - https://kubesphere.io/case/vng/
 
-### **FPT Software HCMC | Web Developer Intern | 2017**
+### **FPT Software HCMC | Software Engineer | Sept 2017 - June 2018**
 
-- System Analysis and Design [Mock, Usecase, Database, UI,...)
-- Technologies: Java (Spring Framework), Hibernate, Maven, Jquery, HTML/CSS,...
+- Developed ERP web applications using the Spring Framework, Hibernate, and Maven.
+- Designed and implemented responsive user interfaces using HTML, CSS, and jQuery.
+- Collaborated with cross-functional teams to deliver high-quality software products.
+- Wrote clean, efficient, and maintainable code to meet business requirements.
+- Conducted code reviews and provided feedback to ensure code quality and adherence to best practices.
+- Optimized application performance and scalability through proper database design and query optimization techniques.
+- Worked with Project Manager to understand and refine business requirements, and provided technical solutions and recommendations.
+- Troubleshot and resolved technical issues to ensure application uptime and reliability.
+- Technologies: Java (Spring Framework), Hibernate, Maven, Jquery, MySQL, HTML/CSS,...
