@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duy Tan & Van Tam - Wedding Invitation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Raleway:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-navy: #1E3A5F;
+            --color-seafoam: #A7C7B7;
+            --color-champagne: #D8C3A5;
+            --color-sand: #E7DCCB;
+            --color-white: #F9F7F2;
+        }
+
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: var(--color-white);
+            color: var(--color-navy);
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .script {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* Slideshow styling */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            animation: fadeInSlide 1.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+            opacity: 1;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(8px);
+        }
+
+        /* Navigation dots for slideshow */
+        .slide-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .dot.active {
+            background-color: var(--color-champagne);
+            width: 16px;
+            height: 16px;
+        }
+
+        .dot:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Wave SVG Animation */
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(25px); }
+            100% { transform: translateX(0); }
+        }
+
+        .wave-animation {
+            animation: wave 6s ease-in-out infinite;
+        }
+
+        /* Fade-in animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .fade-in-delay-1 { animation-delay: 0.2s; }
+        .fade-in-delay-2 { animation-delay: 0.4s; }
+        .fade-in-delay-3 { animation-delay: 0.6s; }
+
+        /* Hover effects */
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(30, 58, 95, 0.15);
+        }
+
+        /* Button hover gradient */
+        .btn-champagne {
+            background-color: var(--color-champagne);
+            color: var(--color-navy);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .btn-champagne:hover {
+            background: linear-gradient(135deg, var(--color-champagne), var(--color-seafoam));
+            transform: scale(1.05);
+        }
+
+        /* Seafoam accent hover */
+        .input-seafoam {
+            border-color: var(--color-seafoam);
+            transition: all 0.3s ease;
+        }
+
+        .input-seafoam:focus {
+            outline: none;
+            border-color: var(--color-champagne);
+            box-shadow: 0 0 0 3px rgba(167, 199, 183, 0.1);
+        }
+
+        /* Photo frame styles */
+        .photo-frame {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(30, 58, 95, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(30, 58, 95, 0.2);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Circular image wrapper */
+        .circle-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(30, 58, 95, 0.2);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle-image:hover {
+            transform: scale(1.08);
+        }
+
+        .circle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Decorative divider */
+        .gold-divider {
+            width: 60px;
+            height: 3px;
+            background-color: var(--color-champagne);
+            margin: 0 auto;
+        }
+
+        /* Countdown timer styling */
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-champagne);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .countdown-label {
+            font-size: 0.875rem;
+            letter-spacing: 1px;
+            color: var(--color-navy);
+            text-transform: uppercase;
+        }
+
+        /* Form styles */
+        .form-input {
+            border: 2px solid var(--color-sand);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: 'Raleway', sans-serif;
+            transition: all 0.3s ease;
+            background-color: var(--color-white);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-seafoam);
+            box-shadow: 0 0 0 4px rgba(167, 199, 183, 0.1);
+        }
+
+        /* Navigation styles */
+        nav a {
+            color: var(--color-navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--color-champagne);
+        }
+
+        /* Responsive considerations */
+        @media (max-width: 768px) {
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .circle-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .serif {
+                font-size: 2rem;
+            }
+        }
+
+        /* Background gradient for sections */
+        .bg-gradient-sand {
+            background: linear-gradient(135deg, var(--color-white) 0%, var(--color-sand) 100%);
+        }
+
+        .bg-ocean-gradient {
+            background: linear-gradient(180deg, rgba(30, 58, 95, 0.05) 0%, rgba(167, 199, 183, 0.05) 100%);
+        }
+
+        /* Subtle texture pattern */
+        .texture-subtle {
+            position: relative;
+        }
+
+        .texture-subtle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(30, 58, 95, 0.02) 2px,
+                    rgba(30, 58, 95, 0.02) 4px
+                );
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white bg-opacity-90 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div class="serif text-2xl font-bold" style="color: var(--color-navy);">T & T</div>
+            <div class="hidden md:flex gap-8">
+                <a href="#hero" class="text-sm tracking-widest uppercase">Home</a>
+                <a href="#story" class="text-sm tracking-widest uppercase">Our Story</a>
+                <a href="#events" class="text-sm tracking-widest uppercase">Events</a>
+                <a href="#gallery" class="text-sm tracking-widest uppercase">Gallery</a>
+                <a href="#rsvp" class="text-sm tracking-widest uppercase">RSVP</a>
+            </div>
+            <button onclick="document.getElementById('rsvp').scrollIntoView({ behavior: 'smooth' })" class="btn-champagne px-6 py-2 rounded-full text-sm font-semibold">
+                RSVP Now
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative pt-24 pb-16 md:pt-32 md:pb-24 min-h-screen flex items-center justify-center texture-subtle" style="background: var(--color-navy);">
+        
+        <!-- Slideshow container with background images -->
+        <div class="slideshow-container absolute inset-0 z-0">
+            <div class="slide active">
+                <img src="img/hero/005-006.jpg?height=1080&width=1920" alt="Couple Photo 1">
+            </div>
+            <div class="slide">
+                <img src="img/hero/007-008.jpg?height=1080&width=1920" alt="Couple Photo 2">
+            </div>
+            <div class="slide">
+                <img src="img/hero/009-010.jpg?height=1080&width=1920" alt="Couple Photo 3">
+            </div>
+            <div class="slide">
+                <img src="img/hero/011-012.jpg?height=1080&width=1920" alt="Couple Photo 4">
+            </div>
+            <div class="slide">
+                <img src="img/hero/025-026.jpg?height=1080&width=1920" alt="Couple Photo 4">
+            </div>
+            <div class="slide">
+                <img src="img/hero/015-016.jpg?height=1080&width=1920" alt="Couple Photo 4">
+            </div>
+            <div class="slide">
+                <img src="img/hero/017-018.jpg?height=1080&width=1920" alt="Couple Photo 4">
+            </div>
+            <div class="slide">
+                <img src="img/hero/019-020.jpg?height=1080&width=1920" alt="Couple Photo 4">
+            </div>
+            <div class="slide">
+                <img src="img/hero/027-028.jpg?height=1080&width=1920" alt="Couple Photo 4">
+            </div>
+            <!-- Slideshow navigation dots -->
+            <div class="slide-dots">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+                <span class="dot" onclick="currentSlide(6)"></span>
+                <span class="dot" onclick="currentSlide(7)"></span>
+                <span class="dot" onclick="currentSlide(8)"></span>
+                <span class="dot" onclick="currentSlide(9)"></span>
+            </div>
+
+            <!-- Overlay for text readability -->
+            <div class="absolute inset-0 bg-black bg-opacity-30 z-10"></div>
+        </div>
+
+        <!-- Content overlay with prominent names -->
+        <div class="relative z-20 max-w-4xl mx-auto px-4 text-center space-y-8 fade-in">
+            <div class="fade-in-up fade-in-delay-1">
+                <p class="script text-4xl md:text-5xl mb-6 text-white">Together forever</p>
+                <h1 class="serif text-5xl md:text-7xl font-bold leading-tight text-white">
+                    Duy Tan <span style="color: var(--color-champagne);">&</span> Van Tam
+                </h1>
+            </div>
+
+            <div class="fade-in-up fade-in-delay-2 space-y-2">
+                <p class="text-lg md:text-xl tracking-widest uppercase font-light text-white">Saturday, November 22, 2025</p>
+                <p class="text-base md:text-lg text-yellow-100">
+                    Hidden Haven, 393/21 Binh Quoi, Phuong 28, Binh Thanh, HCM
+                </p>
+            </div>
+
+            <!-- Countdown Timer -->
+            <div class="fade-in-up fade-in-delay-3 pt-8">
+                <p class="text-sm tracking-widest uppercase font-light mb-8 text-white">Time Until We Say Yes</p>
+                <div class="grid grid-cols-4 gap-4 md:gap-8 max-w-md mx-auto">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days">0</div>
+                        <p class="countdown-label text-white">Days</p>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours">0</div>
+                        <p class="countdown-label text-white">Hours</p>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes">0</div>
+                        <p class="countdown-label text-white">Minutes</p>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds">0</div>
+                        <p class="countdown-label text-white">Seconds</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fade-in-up fade-in-delay-3 pt-8">
+                <button onclick="document.getElementById('rsvp').scrollIntoView({ behavior: 'smooth' })" 
+                    class="btn-champagne px-8 py-3 rounded-full uppercase tracking-widest text-sm shadow-lg hover-lift">
+                    Join Us
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="story" class="py-20 md:py-32 px-4" style="background-color: var(--color-white);">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 md:mb-24">
+                <div class="gold-divider"></div>
+                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4">Our Journey</h2>
+                <p class="text-lg font-light" style="color: var(--color-seafoam);">A love story written in the sand</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12 items-center mb-16">
+                <div class="flex justify-center md:justify-end">
+                    <div class="circle-image">
+                        <img src="img/hero/019-020.jpg?height=200&width=200" alt="Duy Tan">
+                    </div>
+                </div>
+
+                <div class="md:col-span-1 text-center">
+                    <p class="script text-3xl mb-4" style="color: var(--color-champagne);">meets</p>
+                </div>
+
+                <div class="flex justify-center md:justify-start">
+                    <div class="circle-image">
+                        <img src="img/hero/015-016.jpg?height=200&width=200" alt="Van Tam">
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-6 text-center md:text-left">
+                <p class="text-lg leading-relaxed font-light">
+                    Our story began with a chance meeting at the most unexpected moment. What started as a simple conversation 
+                    blossomed into a profound connection that neither of us could have imagined. Every moment with Duy Tan felt 
+                    like coming home, and every laugh with Van Tam reminded us what it truly means to love.
+                </p>
+
+                <p class="text-lg leading-relaxed font-light">
+                    Through the seasons of life, we discovered that the greatest love stories aren't the loudest ones—they're 
+                    the quiet moments, the stolen glances, and the unwavering presence through every triumph and challenge. 
+                    Today, we invite you to celebrate the beginning of our forever, surrounded by those who mean the most to us.
+                </p>
+
+                <p class="text-lg leading-relaxed font-light">
+                    Thank you for being part of our journey. Your presence means everything to us.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Details Section -->
+    <section id="events" class="py-20 md:py-32 px-4 bg-gradient-sand">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 md:mb-24">
+                <div class="gold-divider"></div>
+                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4">Wedding Day</h2>
+                <p class="text-lg font-light" style="color: var(--color-seafoam);">Saturday, November 22, 2025</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Check-in -->
+                <div class="bg-white rounded-2xl p-8 shadow-md hover-lift text-center">
+                    <div class="text-4xl mb-4" style="color: var(--color-champagne);">🌹</div>
+                    <h3 class="serif text-2xl font-bold mb-2">Check-in</h3>
+                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-4">Main Event</p>
+                    <p class="text-lg font-semibold mb-2">4:30 PM</p>
+                    <p class="text-sm leading-relaxed">
+                        Join us as we exchange our vows in an intimate ceremony overlooking the serene waters.
+                    </p>
+                </div>
+
+                <!-- Reception -->
+                <div class="bg-white rounded-2xl p-8 shadow-md hover-lift text-center">
+                    <div class="text-4xl mb-4" style="color: var(--color-champagne);">🥂/🍽️</div>
+                    <h3 class="serif text-2xl font-bold mb-2">Reception</h3>
+                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-4">Celebration Begins</p>
+                    <p class="text-lg font-semibold mb-2">5:30 PM</p>
+                    <p class="text-sm leading-relaxed">
+                        Celebrate with us over refreshing cocktails and hors d'oeuvres by the sea breeze.
+                    </p>
+                </div>
+
+                <!-- Ceremony -->
+                <div class="bg-white rounded-2xl p-8 shadow-md hover-lift text-center">
+                    <div class="text-4xl mb-4" style="color: var(--color-champagne);">🎉</div>
+                    <h3 class="serif text-2xl font-bold mb-2">Ceremony</h3>
+                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-4">Let's Celebrate</p>
+                    <p class="text-lg font-semibold mb-2">6:00 PM</p>
+                    <p class="text-sm leading-relaxed">
+                        Dinner, dancing, and memories under the stars at Hidden Haven.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Venue Info -->
+            <div class="mt-16 bg-white rounded-2xl p-8 md:p-12 shadow-md">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="serif text-2xl font-bold mb-4">Venue Location</h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            <strong>Camelia Venue</strong><br>
+                            <strong>Hidden Haven</strong><br>
+                            393/21 Binh Quoi<br>
+                            Phuong 28, Binh Thanh<br>
+                            Ho Chi Minh City, Vietnam
+                        </p>
+                        <p class="text-sm text-gray-500 mt-6 mb-4">• Car/Motorbike Parking Available</p>
+                        <p class="text-sm text-gray-500 mt-6 mb-4">• Accessible</p>
+                        <p class="text-sm text-gray-500 mt-6 mb-4">• Scenic Views</p>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-lg overflow-hidden" style="background-color: var(--color-sand); height: 400px;">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14676.154526661254!2d106.72652322219926!3d10.82856502418317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527d61b78114f%3A0xb043cbd802aeb435!2sHIDDEN%20HAVEN!5e0!3m2!1sen!2s!4v1761977908971!5m2!1sen!2s" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 md:py-32 px-4" style="background-color: var(--color-white);">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 md:mb-24">
+                <div class="gold-divider"></div>
+                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4">Our Moments</h2>
+                <p class="text-lg font-light" style="color: var(--color-seafoam);">A collection of cherished memories</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Gallery items -->
+                <div class="photo-frame h-72">
+                    <img src="img/mm/img_1.jpg?height=300&width=300" alt="Memory 1">
+                </div>
+                <div class="photo-frame h-72">
+                    <img src="img/mm/img_11.jpg?height=300&width=300" alt="Memory 2">
+                </div>
+                <div class="photo-frame h-72">
+                    <img src="img/mm/img_3.jpg?height=300&width=300" alt="Memory 3">
+                </div>
+                <div class="photo-frame h-72">
+                    <img src="img/mm/img_4.jpg?height=300&width=300" alt="Memory 4">
+                </div>
+                <div class="photo-frame h-72">
+                    <img src="img/mm/SMO04928.JPG?height=300&width=300" alt="Memory 5">
+                </div>
+                <div class="photo-frame h-72">
+                    <img src="img/mm/img_14.jpg?height=300&width=300" alt="Memory 6">
+                </div>
+                <div class="photo-frame h-72">
+                    <img src="img/mm/img_9.jpg?height=300&width=300" alt="Memory 7">
+                </div>
+                <div class="photo-frame h-72">
+                    <img src="img/mm/img_8.jpg?height=300&width=300" alt="Memory 8">
+                </div>
+                <div class="photo-frame h-72">
+                    <img src="img/mm/img_13.jpg?height=300&width=300" alt="Memory 9">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="py-20 md:py-32 px-4 bg-gradient-sand">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="gold-divider"></div>
+                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4">Join Us</h2>
+                <p class="text-lg font-light" style="color: var(--color-seafoam);">Please confirm your attendance by November 15th</p>
+            </div>
+
+            <!-- Replaced custom form with Typeform embed -->
+            <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                <div style="width:100%;height:600px;">
+                    <iframe 
+                        src="https://form.typeform.com/to/Mii1vK2T?typeform-embed=embed-fullpage" 
+                        frameborder="0" 
+                        allow="camera; microphone; geolocation; payment" 
+                        style="width:100%;height:100%;border:none;">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy py-12 px-4 text-center" style="background-color: var(--color-navy);">
+        <div class="max-w-6xl mx-auto">
+            <p class="text-white text-lg font-light mb-2">We can't wait to celebrate with you!</p>
+            <p class="text-gray-300 text-sm">© 2025 Duy Tan & Van Tam. All our love to you.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const slideInterval = 6000; // Change slide every 6 seconds
+
+        function showSlide(n) {
+            // Wrap around if index is out of bounds
+            if (n >= slides.length) {
+                currentSlideIndex = 0;
+            } else if (n < 0) {
+                currentSlideIndex = slides.length - 1;
+            } else {
+                currentSlideIndex = n;
+            }
+
+            // Remove active class from all slides and dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            // Add active class to current slide and dot
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        function currentSlide(n) {
+            clearInterval(slideshowTimer);
+            showSlide(n);
+            startSlideshow();
+        }
+
+        function nextSlide() {
+            showSlide(currentSlideIndex + 1);
+        }
+
+        let slideshowTimer;
+
+        function startSlideshow() {
+            slideshowTimer = setInterval(nextSlide, slideInterval);
+        }
+
+        // Start slideshow on page load
+        startSlideshow();
+
+        // Countdown Timer
+        function updateCountdown() {
+            const weddingDate = new Date('2025-11-22T00:00:00').getTime();
+            const now = new Date().getTime();
+            const timeLeft = weddingDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
