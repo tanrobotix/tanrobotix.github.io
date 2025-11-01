@@ -281,6 +281,22 @@
             color: var(--color-champagne);
         }
 
+        /* Language toggle styles */
+        .lang-btn {
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active-lang {
+            opacity: 1;
+            background-color: var(--color-champagne);
+            font-weight: 700;
+        }
+
+        .lang-btn:hover {
+            opacity: 0.8;
+        }
+
         /* Responsive considerations */
         @media (max-width: 768px) {
             .countdown-number {
@@ -336,15 +352,26 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
             <div class="serif text-2xl font-bold" style="color: var(--color-navy);">T & T</div>
             <div class="hidden md:flex gap-8">
-                <a href="#hero" class="text-sm tracking-widest uppercase">Home</a>
-                <a href="#story" class="text-sm tracking-widest uppercase">Our Story</a>
-                <a href="#events" class="text-sm tracking-widest uppercase">Events</a>
-                <a href="#gallery" class="text-sm tracking-widest uppercase">Gallery</a>
-                <a href="#rsvp" class="text-sm tracking-widest uppercase">RSVP</a>
+                <a href="#hero" class="text-sm tracking-widest uppercase" data-i18n="nav.home">Home</a>
+                <a href="#story" class="text-sm tracking-widest uppercase" data-i18n="nav.story">Our Story</a>
+                <a href="#events" class="text-sm tracking-widest uppercase" data-i18n="nav.events">Events</a>
+                <a href="#gallery" class="text-sm tracking-widest uppercase" data-i18n="nav.gallery">Gallery</a>
+                <a href="#rsvp" class="text-sm tracking-widest uppercase" data-i18n="nav.rsvp">RSVP</a>
             </div>
-            <button onclick="document.getElementById('rsvp').scrollIntoView({ behavior: 'smooth' })" class="btn-champagne px-6 py-2 rounded-full text-sm font-semibold">
-                RSVP Now
-            </button>
+            <div class="flex items-center gap-4">
+                <!-- Language Toggle -->
+                <div class="flex items-center gap-2 bg-white rounded-full px-3 py-1 shadow-sm border-2" style="border-color: var(--color-sand);">
+                    <button onclick="changeLanguage('vi')" id="lang-vi" class="lang-btn px-3 py-1 rounded-full text-xs font-semibold transition-all" style="color: var(--color-navy);">
+                        VI
+                    </button>
+                    <button onclick="changeLanguage('en')" id="lang-en" class="lang-btn px-3 py-1 rounded-full text-xs font-semibold transition-all active-lang" style="color: var(--color-navy);">
+                        EN
+                    </button>
+                </div>
+                <button onclick="document.getElementById('rsvp').scrollIntoView({ behavior: 'smooth' })" class="btn-champagne px-6 py-2 rounded-full text-sm font-semibold" data-i18n="nav.rsvpBtn">
+                    RSVP Now
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -401,45 +428,45 @@
         <!-- Content overlay with prominent names -->
         <div class="relative z-20 max-w-4xl mx-auto px-4 text-center space-y-8 fade-in">
             <div class="fade-in-up fade-in-delay-1">
-                <p class="script text-4xl md:text-5xl mb-6 text-white">Together forever</p>
+                <p class="script text-4xl md:text-5xl mb-6 text-white" data-i18n="hero.subtitle">Together forever</p>
                 <h1 class="serif text-5xl md:text-7xl font-bold leading-tight text-white">
                     Duy Tan <span style="color: var(--color-champagne);">&</span> Van Tam
                 </h1>
             </div>
 
             <div class="fade-in-up fade-in-delay-2 space-y-2">
-                <p class="text-lg md:text-xl tracking-widest uppercase font-light text-white">Saturday, November 22, 2025</p>
-                <p class="text-base md:text-lg text-yellow-100">
+                <p class="text-lg md:text-xl tracking-widest uppercase font-light text-white" data-i18n="hero.date">Saturday, November 22, 2025</p>
+                <p class="text-base md:text-lg text-yellow-100" data-i18n="hero.location">
                     Hidden Haven, 393/21 Binh Quoi, Phuong 28, Binh Thanh, HCM
                 </p>
             </div>
 
             <!-- Countdown Timer -->
             <div class="fade-in-up fade-in-delay-3 pt-8">
-                <p class="text-sm tracking-widest uppercase font-light mb-8 text-white">Time Until We Say Yes</p>
+                <p class="text-sm tracking-widest uppercase font-light mb-8 text-white" data-i18n="hero.countdown">Time Until We Say Yes</p>
                 <div class="grid grid-cols-4 gap-4 md:gap-8 max-w-md mx-auto">
                     <div class="countdown-item">
                         <div class="countdown-number" id="days">0</div>
-                        <p class="countdown-label text-white">Days</p>
+                        <p class="countdown-label text-white" data-i18n="hero.days">Days</p>
                     </div>
                     <div class="countdown-item">
                         <div class="countdown-number" id="hours">0</div>
-                        <p class="countdown-label text-white">Hours</p>
+                        <p class="countdown-label text-white" data-i18n="hero.hours">Hours</p>
                     </div>
                     <div class="countdown-item">
                         <div class="countdown-number" id="minutes">0</div>
-                        <p class="countdown-label text-white">Minutes</p>
+                        <p class="countdown-label text-white" data-i18n="hero.minutes">Minutes</p>
                     </div>
                     <div class="countdown-item">
                         <div class="countdown-number" id="seconds">0</div>
-                        <p class="countdown-label text-white">Seconds</p>
+                        <p class="countdown-label text-white" data-i18n="hero.seconds">Seconds</p>
                     </div>
                 </div>
             </div>
 
             <div class="fade-in-up fade-in-delay-3 pt-8">
                 <button onclick="document.getElementById('rsvp').scrollIntoView({ behavior: 'smooth' })" 
-                    class="btn-champagne px-8 py-3 rounded-full uppercase tracking-widest text-sm shadow-lg hover-lift">
+                    class="btn-champagne px-8 py-3 rounded-full uppercase tracking-widest text-sm shadow-lg hover-lift" data-i18n="hero.joinBtn">
                     Join Us
                 </button>
             </div>
@@ -451,42 +478,48 @@
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 md:mb-24">
                 <div class="gold-divider"></div>
-                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4">Our Journey</h2>
-                <p class="text-lg font-light" style="color: var(--color-seafoam);">A love story written in the sand</p>
+                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4" data-i18n="story.title">Our Journey</h2>
+                <p class="text-lg font-light" style="color: var(--color-seafoam);" data-i18n="story.subtitle">A love story written in the sand</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-12 items-center mb-16">
                 <div class="flex justify-center md:justify-end">
-                    <div class="circle-image">
-                        <img src="img/hero/019-020.jpg?height=200&width=200" alt="Duy Tan">
+                    <div class="flex flex-col items-center">
+                        <div class="circle-image">
+                            <img src="img/avt/a.jpg?height=200&width=200" alt="Duy Tan">
+                        </div>
+                        <p class="serif text-2xl font-bold mt-4" style="color: var(--color-navy);">Duy Tân</p>
                     </div>
                 </div>
 
                 <div class="md:col-span-1 text-center">
-                    <p class="script text-3xl mb-4" style="color: var(--color-champagne);">meets</p>
+                    <p class="script text-3xl mb-4" style="color: var(--color-champagne);" data-i18n="story.meets">meets</p>
                 </div>
 
                 <div class="flex justify-center md:justify-start">
-                    <div class="circle-image">
-                        <img src="img/hero/015-016.jpg?height=200&width=200" alt="Van Tam">
+                    <div class="flex flex-col items-center">
+                        <div class="circle-image">
+                            <img src="img/avt/e.jpg?height=200&width=200" alt="Van Tam">
+                        </div>
+                        <p class="serif text-2xl font-bold mt-4" style="color: var(--color-navy);">Vân Tâm</p>
                     </div>
                 </div>
             </div>
 
             <div class="max-w-3xl mx-auto space-y-6 text-center md:text-left">
-                <p class="text-lg leading-relaxed font-light">
+                <p class="text-lg leading-relaxed font-light" data-i18n="story.para1">
                     Our story began with a chance meeting at the most unexpected moment. What started as a simple conversation 
                     blossomed into a profound connection that neither of us could have imagined. Every moment with Duy Tan felt 
                     like coming home, and every laugh with Van Tam reminded us what it truly means to love.
                 </p>
 
-                <p class="text-lg leading-relaxed font-light">
+                <p class="text-lg leading-relaxed font-light" data-i18n="story.para2">
                     Through the seasons of life, we discovered that the greatest love stories aren't the loudest ones—they're 
                     the quiet moments, the stolen glances, and the unwavering presence through every triumph and challenge. 
                     Today, we invite you to celebrate the beginning of our forever, surrounded by those who mean the most to us.
                 </p>
 
-                <p class="text-lg leading-relaxed font-light">
+                <p class="text-lg leading-relaxed font-light" data-i18n="story.para3">
                     Thank you for being part of our journey. Your presence means everything to us.
                 </p>
             </div>
@@ -498,42 +531,88 @@
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 md:mb-24">
                 <div class="gold-divider"></div>
-                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4">Wedding Day</h2>
-                <p class="text-lg font-light" style="color: var(--color-seafoam);">Saturday, November 22, 2025</p>
+                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4" data-i18n="events.title">Wedding Day</h2>
+                <p class="text-lg font-light" style="color: var(--color-seafoam);" data-i18n="events.date">Saturday, November 22, 2025</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Check-in -->
-                <div class="bg-white rounded-2xl p-8 shadow-md hover-lift text-center">
-                    <div class="text-4xl mb-4" style="color: var(--color-champagne);">🌹</div>
-                    <h3 class="serif text-2xl font-bold mb-2">Check-in</h3>
-                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-4">Main Event</p>
-                    <p class="text-lg font-semibold mb-2">4:30 PM</p>
-                    <p class="text-sm leading-relaxed">
-                        Join us as we exchange our vows in an intimate ceremony overlooking the serene waters.
-                    </p>
-                </div>
+            <!-- Replaced grid with vertical timeline layout -->
+            <div class="max-w-2xl mx-auto">
+                <!-- Timeline container -->
+                <div class="relative">
+                    <!-- Vertical line -->
+                    <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full" style="background-color: var(--color-champagne); top: 0; bottom: 0;"></div>
 
-                <!-- Reception -->
-                <div class="bg-white rounded-2xl p-8 shadow-md hover-lift text-center">
-                    <div class="text-4xl mb-4" style="color: var(--color-champagne);">🥂/🍽️</div>
-                    <h3 class="serif text-2xl font-bold mb-2">Reception</h3>
-                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-4">Celebration Begins</p>
-                    <p class="text-lg font-semibold mb-2">5:30 PM</p>
-                    <p class="text-sm leading-relaxed">
-                        Celebrate with us over refreshing cocktails and hors d'oeuvres by the sea breeze.
-                    </p>
-                </div>
+                    <!-- Timeline items -->
+                    <div class="space-y-12">
+                        <!-- Checkin -->
+                        <div class="relative">
+                            <div class="flex items-center md:flex-row gap-8">
+                                <!-- Left side content (desktop) / full width (mobile) -->
+                                <div class="md:w-1/2 md:pr-12 md:text-right">
+                                    <div class="bg-white rounded-2xl p-8 shadow-md hover-lift">
+                                        <div class="text-4xl mb-4" style="color: var(--color-champagne);">🌹</div>
+                                        <h3 class="serif text-2xl font-bold mb-2" data-i18n="events.checkin.title">Checkin</h3>
+                                        <p class="text-sm text-gray-500 uppercase tracking-widest mb-4" data-i18n="events.checkin.subtitle">Main Event</p>
+                                        <p class="text-lg font-semibold mb-2">4:30 PM</p>
+                                    </div>
+                                </div>
 
-                <!-- Ceremony -->
-                <div class="bg-white rounded-2xl p-8 shadow-md hover-lift text-center">
-                    <div class="text-4xl mb-4" style="color: var(--color-champagne);">🎉</div>
-                    <h3 class="serif text-2xl font-bold mb-2">Ceremony</h3>
-                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-4">Let's Celebrate</p>
-                    <p class="text-lg font-semibold mb-2">6:00 PM</p>
-                    <p class="text-sm leading-relaxed">
-                        Dinner, dancing, and memories under the stars at Hidden Haven.
-                    </p>
+                                <!-- Timeline dot -->
+                                <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center">
+                                    <div class="w-6 h-6 rounded-full" style="background-color: var(--color-champagne); border: 4px solid var(--color-white); box-shadow: 0 0 0 4px var(--color-champagne);"></div>
+                                </div>
+
+                                <!-- Right side (empty on desktop) -->
+                                <div class="hidden md:block md:w-1/2"></div>
+                            </div>
+                        </div>
+
+                        <!-- Reception -->
+                        <div class="relative">
+                            <div class="flex items-center md:flex-row gap-8">
+                                <!-- Left side (empty on desktop) -->
+                                <div class="hidden md:block md:w-1/2"></div>
+
+                                <!-- Timeline dot -->
+                                <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center">
+                                    <div class="w-6 h-6 rounded-full" style="background-color: var(--color-champagne); border: 4px solid var(--color-white); box-shadow: 0 0 0 4px var(--color-champagne);"></div>
+                                </div>
+
+                                <!-- Right side content (desktop) / full width (mobile) -->
+                                <div class="md:w-1/2 md:pl-12">
+                                    <div class="bg-white rounded-2xl p-8 shadow-md hover-lift">
+                                        <div class="text-4xl mb-4" style="color: var(--color-champagne);">🥂/🍽️</div>
+                                        <h3 class="serif text-2xl font-bold mb-2" data-i18n="events.reception.title">Reception</h3>
+                                        <p class="text-sm text-gray-500 uppercase tracking-widest mb-4" data-i18n="events.reception.subtitle">Celebration Begins</p>
+                                        <p class="text-lg font-semibold mb-2">5:00 PM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ceremony -->
+                        <div class="relative">
+                            <div class="flex items-center md:flex-row gap-8">
+                                <!-- Left side content (desktop) / full width (mobile) -->
+                                <div class="md:w-1/2 md:pr-12 md:text-right">
+                                    <div class="bg-white rounded-2xl p-8 shadow-md hover-lift">
+                                        <div class="text-4xl mb-4" style="color: var(--color-champagne);">🎉</div>
+                                        <h3 class="serif text-2xl font-bold mb-2" data-i18n="events.ceremony.title">Ceremony</h3>
+                                        <p class="text-sm text-gray-500 uppercase tracking-widest mb-4" data-i18n="events.ceremony.subtitle">Let's Celebrate</p>
+                                        <p class="text-lg font-semibold mb-2">5:30 PM</p>
+                                    </div>
+                                </div>
+
+                                <!-- Timeline dot -->
+                                <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center">
+                                    <div class="w-6 h-6 rounded-full" style="background-color: var(--color-champagne); border: 4px solid var(--color-white); box-shadow: 0 0 0 4px var(--color-champagne);"></div>
+                                </div>
+
+                                <!-- Right side (empty on desktop) -->
+                                <div class="hidden md:block md:w-1/2"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -541,17 +620,17 @@
             <div class="mt-16 bg-white rounded-2xl p-8 md:p-12 shadow-md">
                 <div class="grid md:grid-cols-2 gap-12">
                     <div>
-                        <h3 class="serif text-2xl font-bold mb-4">Venue Location</h3>
+                        <h3 class="serif text-2xl font-bold mb-4" data-i18n="events.venue.title">Venue Location</h3>
                         <p class="text-gray-700 leading-relaxed">
-                            <strong>Camelia Venue</strong><br>
+                            <strong>Sảnh Camelia</strong><br>
                             <strong>Hidden Haven</strong><br>
                             393/21 Binh Quoi<br>
                             Phuong 28, Binh Thanh<br>
                             Ho Chi Minh City, Vietnam
                         </p>
-                        <p class="text-sm text-gray-500 mt-6 mb-4">• Car/Motorbike Parking Available</p>
-                        <p class="text-sm text-gray-500 mt-6 mb-4">• Accessible</p>
-                        <p class="text-sm text-gray-500 mt-6 mb-4">• Scenic Views</p>
+                        <p class="text-sm text-gray-500 mt-6 mb-4" data-i18n="events.venue.parking">• Car/Motorbike Parking Available</p>
+                        <p class="text-sm text-gray-500 mt-6 mb-4" data-i18n="events.venue.accessible">• Accessible</p>
+                        <p class="text-sm text-gray-500 mt-6 mb-4" data-i18n="events.venue.views">• Scenic Views</p>
                     </div>
                     <div class="w-full bg-gray-200 rounded-lg overflow-hidden" style="background-color: var(--color-sand); height: 400px;">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14676.154526661254!2d106.72652322219926!3d10.82856502418317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527d61b78114f%3A0xb043cbd802aeb435!2sHIDDEN%20HAVEN!5e0!3m2!1sen!2s!4v1761977908971!5m2!1sen!2s" 
@@ -573,8 +652,8 @@
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 md:mb-24">
                 <div class="gold-divider"></div>
-                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4">Our Moments</h2>
-                <p class="text-lg font-light" style="color: var(--color-seafoam);">A collection of cherished memories</p>
+                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4" data-i18n="gallery.title">Our Moments</h2>
+                <p class="text-lg font-light" style="color: var(--color-seafoam);" data-i18n="gallery.subtitle">A collection of cherished memories</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -615,8 +694,8 @@
         <div class="max-w-2xl mx-auto">
             <div class="text-center mb-12">
                 <div class="gold-divider"></div>
-                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4">Join Us</h2>
-                <p class="text-lg font-light" style="color: var(--color-seafoam);">Please confirm your attendance by November 15th</p>
+                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4" data-i18n="rsvp.title">Join Us</h2>
+                <p class="text-lg font-light" style="color: var(--color-seafoam);" data-i18n="rsvp.subtitle">Please confirm your attendance by November 15th</p>
             </div>
 
             <!-- Replaced custom form with Typeform embed -->
@@ -636,12 +715,174 @@
     <!-- Footer -->
     <footer class="bg-navy py-12 px-4 text-center" style="background-color: var(--color-navy);">
         <div class="max-w-6xl mx-auto">
-            <p class="text-white text-lg font-light mb-2">We can't wait to celebrate with you!</p>
-            <p class="text-gray-300 text-sm">© 2025 Duy Tan & Van Tam. All our love to you.</p>
+            <p class="text-white text-lg font-light mb-2" data-i18n="footer.message">We can't wait to celebrate with you!</p>
+            <p class="text-gray-300 text-sm" data-i18n="footer.copyright">© 2025 Duy Tan & Van Tam. All our love to you.</p>
         </div>
     </footer>
 
     <script>
+        // Language translations
+        const translations = {
+            en: {
+                nav: {
+                    home: "Home",
+                    story: "Our Story",
+                    events: "Events",
+                    gallery: "Gallery",
+                    rsvp: "RSVP",
+                    rsvpBtn: "RSVP Now"
+                },
+                hero: {
+                    subtitle: "Together forever",
+                    date: "Saturday, November 22, 2025",
+                    location: "Hidden Haven, 393/21 Binh Quoi, Phuong 28, Binh Thanh, HCM",
+                    countdown: "Time Until We Say Yes",
+                    days: "Days",
+                    hours: "Hours",
+                    minutes: "Minutes",
+                    seconds: "Seconds",
+                    joinBtn: "Join Us"
+                },
+                story: {
+                    title: "Our Journey",
+                    subtitle: "A love story written in the sand",
+                    meets: "meets",
+                    para1: "Our story began with a chance meeting at the most unexpected moment. What started as a simple conversation blossomed into a profound connection that neither of us could have imagined. Every moment with Duy Tan felt like coming home, and every laugh with Van Tam reminded us what it truly means to love.",
+                    para2: "Through the seasons of life, we discovered that the greatest love stories aren't the loudest ones—they're the quiet moments, the stolen glances, and the unwavering presence through every triumph and challenge. Today, we invite you to celebrate the beginning of our forever, surrounded by those who mean the most to us.",
+                    para3: "Thank you for being part of our journey. Your presence means everything to us."
+                },
+                events: {
+                    title: "Wedding Timeline",
+                    date: "Saturday, November 22, 2025",
+                    checkin: {
+                        title: "Checkin",
+                        subtitle: "Check-in/Main Event"
+                    },
+                    reception: {
+                        title: "Ceremony",
+                        subtitle: "Let's Celebrate"
+                    },
+                    ceremony: {
+                        title: "Ceremony",
+                        subtitle: "Celebration Begins"
+                    },
+                    venue: {
+                        title: "Venue Location",
+                        parking: "• Car/Motorbike Parking Available",
+                        accessible: "• Accessible",
+                        views: "• Scenic Views"
+                    }
+                },
+                gallery: {
+                    title: "Our Moments",
+                    subtitle: "A collection of cherished memories"
+                },
+                rsvp: {
+                    title: "Join Us",
+                    subtitle: "Please confirm your attendance by November 15th"
+                },
+                footer: {
+                    message: "We can't wait to celebrate with you!",
+                    copyright: "© 2025 Duy Tan & Van Tam. All our love to you."
+                }
+            },
+            vi: {
+                nav: {
+                    home: "Trang Chủ",
+                    story: "Câu Chuyện",
+                    events: "Sự Kiện",
+                    gallery: "Thư Viện",
+                    rsvp: "Xác Nhận",
+                    rsvpBtn: "Xác Nhận Ngay"
+                },
+                hero: {
+                    subtitle: "Mãi mãi bên nhau",
+                    date: "Thứ Bảy, 22 Tháng 11, 2025",
+                    location: "Hidden Haven, 393/21 Bình Quới, Phường 28, Bình Thạnh, TP.HCM",
+                    countdown: "Thời Gian Đến Ngày Đặc Biệt",
+                    days: "Ngày",
+                    hours: "Giờ",
+                    minutes: "Phút",
+                    seconds: "Giây",
+                    joinBtn: "Tham Gia"
+                },
+                story: {
+                    title: "Hành Trình Của Chúng Tôi",
+                    subtitle: "Câu chuyện tình yêu được viết trên cát",
+                    meets: "gặp gỡ",
+                    para1: "Câu chuyện của chúng tôi bắt đầu từ một cuộc gặp gỡ tình cờ vào thời điểm bất ngờ nhất. Những gì bắt đầu như một cuộc trò chuyện đơn giản đã nở rộ thành một kết nối sâu sắc mà không ai trong chúng tôi có thể tưởng tượng được. Mỗi khoảnh khắc bên Duy Tân như về nhà, và mỗi tiếng cười với Vân Tâm nhắc nhở chúng tôi ý nghĩa thực sự của tình yêu.",
+                    para2: "Qua từng mùa của cuộc đời, chúng tôi khám phá rằng những câu chuyện tình yêu vĩ đại nhất không phải là những câu chuyện ồn ào nhất—đó là những khoảnh khắc yên tĩnh, những ánh mắt lén nhìn, và sự hiện diện không lay chuyển qua mọi thành công và thử thách. Hôm nay, chúng tôi mời bạn đến ăn mừng khởi đầu mãi mãi của chúng tôi, được bao quanh bởi những người quan trọng nhất.",
+                    para3: "Cảm ơn bạn đã là một phần trong hành trình của chúng tôi. Sự hiện diện của bạn có ý nghĩa với chúng tôi."
+                },
+                events: {
+                    title: "Ngày Cưới",
+                    date: "Thứ Bảy, 22 Tháng 11, 2025",
+                    checkin: {
+                        title: "Đón Khách",
+                        subtitle: "Đón Khách/Check-in"
+                    },
+                    reception: {
+                        title: "Tiệc Chiêu Đãi",
+                        subtitle: "Teabreak/Bắt Đầu Ăn Mừng"
+                    },
+                    ceremony: {
+                        title: "Bắt Đầu Lễ",
+                        subtitle: "Lễ/Ăn Uống"
+                    },
+                    venue: {
+                        title: "Địa Điểm Tổ Chức",
+                        parking: "• Có Bãi Đỗ Xe Ô Tô/Xe Máy",
+                        accessible: "• Dễ Dàng Tiếp Cận",
+                        views: "• Cảnh Quan Đẹp"
+                    }
+                },
+                gallery: {
+                    title: "Khoảnh Khắc Kỷ Niệm",
+                    subtitle: "Bộ sưu tập những kỷ niệm đáng trân trọng"
+                },
+                rsvp: {
+                    title: "Tham Gia Cùng Chúng Tôi",
+                    subtitle: "Vui lòng xác nhận tham dự trước ngày 15 tháng 11"
+                },
+                footer: {
+                    message: "Chúng tôi rất mong được ăn mừng cùng bạn!",
+                    copyright: "© 2025 Duy Tân & Vân Tâm. Gửi tất cả tình yêu đến bạn."
+                }
+            }
+        };
+
+        // Get current language from localStorage or default to 'en'
+        let currentLanguage = localStorage.getItem('language') || 'en';
+
+        // Function to change language
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active-lang');
+            });
+            document.getElementById(`lang-${lang}`).classList.add('active-lang');
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const keys = element.getAttribute('data-i18n').split('.');
+                let translation = translations[lang];
+                
+                keys.forEach(key => {
+                    translation = translation[key];
+                });
+                
+                element.textContent = translation;
+            });
+        }
+
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            changeLanguage(currentLanguage);
+        });
+
         let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
