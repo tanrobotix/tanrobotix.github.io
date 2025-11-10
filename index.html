@@ -344,6 +344,146 @@
                 );
             pointer-events: none;
         }
+
+        /* QR Code Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--color-white);
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(30, 58, 95, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-navy);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background-color: var(--color-sand);
+            transform: rotate(90deg);
+        }
+
+        .qr-code-container {
+            text-align: center;
+        }
+
+        .qr-code-container img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 1rem auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(30, 58, 95, 0.1);
+        }
+
+        .qr-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .qr-subtitle {
+            font-size: 0.875rem;
+            color: var(--color-seafoam);
+            margin-bottom: 1rem;
+        }
+
+        .bank-info {
+            background-color: var(--color-sand);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .bank-info p {
+            margin: 0.5rem 0;
+            font-size: 0.875rem;
+            color: var(--color-navy);
+        }
+
+        .bank-info strong {
+            font-weight: 600;
+        }
+
+        .gift-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .gift-btn {
+            background: linear-gradient(135deg, var(--color-champagne), var(--color-seafoam));
+            color: var(--color-navy);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(30, 58, 95, 0.15);
+        }
+
+        .gift-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(30, 58, 95, 0.25);
+        }
+
+        .gift-btn span {
+            display: block;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -712,6 +852,61 @@
         </div>
     </section>
 
+    <!-- Wedding Gift Section -->
+    <section id="gift" class="py-20 md:py-32 px-4" style="background-color: var(--color-white);">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="gold-divider"></div>
+                <h2 class="serif text-4xl md:text-5xl font-bold mt-6 mb-4" data-i18n="gift.title">Wedding Gift</h2>
+                <p class="text-lg font-light mb-8" style="color: var(--color-seafoam);" data-i18n="gift.subtitle">Your presence is the greatest gift, but if you wish to bless us</p>
+            </div>
+
+            <div class="gift-buttons">
+                <button onclick="openModal('bride')" class="gift-btn">
+                    <span data-i18n="gift.bride">💐 Mừng Cưới Cô Dâu</span>
+                    <span data-i18n="gift.brideEn">(Gift for Bride)</span>
+                </button>
+                <button onclick="openModal('groom')" class="gift-btn">
+                    <span data-i18n="gift.groom">🤵 Mừng Cưới Chú Rể</span>
+                    <span data-i18n="gift.groomEn">(Gift for Groom)</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- QR Code Modals -->
+    <!-- Bride Modal -->
+    <div id="brideModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('bride')">&times;</span>
+            <div class="qr-code-container">
+                <h3 class="qr-title" data-i18n="modal.bride.title">Mừng Cưới Cô Dâu</h3>
+                <p class="qr-subtitle" data-i18n="modal.bride.subtitle">Scan QR code to send your gift</p>
+                <img src="img/qr/tamqr.jpg" alt="Bride QR Code" id="brideQR">
+                <div class="bank-info">
+                    <p><strong data-i18n="modal.bank">Bank:</strong> <span data-i18n="modal.bride.bank">Vietcombank</span></p>
+                    <p><strong data-i18n="modal.accountName">Account Name:</strong> <span data-i18n="modal.bride.accountName">LE THI VAN TAM</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Groom Modal -->
+    <div id="groomModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('groom')">&times;</span>
+            <div class="qr-code-container">
+                <h3 class="qr-title" data-i18n="modal.groom.title">Mừng Cưới Chú Rể</h3>
+                <p class="qr-subtitle" data-i18n="modal.groom.subtitle">Scan QR code to send your gift</p>
+                <img src="img/qr/tanqr.jpg" alt="Groom QR Code" id="groomQR">
+                <div class="bank-info">
+                    <p><strong data-i18n="modal.bank">Bank:</strong> <span data-i18n="modal.groom.bank">Techcombank</span></p>
+                    <p><strong data-i18n="modal.accountName">Account Name:</strong> <span data-i18n="modal.groom.accountName">TO NGUYEN DUY TAN</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-navy py-12 px-4 text-center" style="background-color: var(--color-navy);">
         <div class="max-w-6xl mx-auto">
@@ -781,6 +976,31 @@
                     title: "Join Us",
                     subtitle: "Please confirm your attendance by November 15th"
                 },
+                gift: {
+                    title: "Wedding Gift",
+                    subtitle: "Your presence is the greatest gift, but if you wish to bless us",
+                    bride: "💐 Gift for Bride",
+                    brideEn: "(Mừng Cưới Cô Dâu)",
+                    groom: "🤵 Gift for Groom",
+                    groomEn: "(Mừng Cưới Chú Rể)"
+                },
+                modal: {
+                    bank: "Bank:",
+                    accountName: "Account Name:",
+                    accountNumber: "Account Number:",
+                    bride: {
+                        title: "Gift for Bride",
+                        subtitle: "Scan QR code to send your gift",
+                        bank: "Vietcombank",
+                        accountName: "LE THI VAN TAM",
+                    },
+                    groom: {
+                        title: "Gift for Groom",
+                        subtitle: "Scan QR code to send your gift",
+                        bank: "Techcombank",
+                        accountName: "TO NGUYEN DUY TAN",
+                    }
+                },
                 footer: {
                     message: "We can't wait to celebrate with you!",
                     copyright: "© 2025 Duy Tan & Van Tam. All our love to you."
@@ -844,6 +1064,31 @@
                     title: "Tham Gia Cùng Chúng Tôi",
                     subtitle: "Vui lòng xác nhận tham dự trước ngày 15 tháng 11"
                 },
+                gift: {
+                    title: "Mừng Cưới",
+                    subtitle: "Sự hiện diện của bạn là món quà lớn nhất, nhưng nếu bạn muốn gửi lời chúc phúc",
+                    bride: "💐 Mừng Cưới Cô Dâu",
+                    brideEn: "(Gift for Bride)",
+                    groom: "🤵 Mừng Cưới Chú Rể",
+                    groomEn: "(Gift for Groom)"
+                },
+                modal: {
+                    bank: "Ngân Hàng:",
+                    accountName: "Tên Tài Khoản:",
+                    accountNumber: "Số Tài Khoản:",
+                    bride: {
+                        title: "Mừng Cưới Cô Dâu",
+                        subtitle: "Quét mã QR để gửi quà",
+                        bank: "Vietcombank",
+                        accountName: "LE THI VAN TAM",
+                    },
+                    groom: {
+                        title: "Mừng Cưới Chú Rể",
+                        subtitle: "Quét mã QR để gửi quà",
+                        bank: "Techcombank",
+                        accountName: "TO NGUYEN DUY TAN",
+                    }
+                },
                 footer: {
                     message: "Chúng tôi rất mong được ăn mừng cùng bạn!",
                     copyright: "© 2025 Duy Tân & Vân Tâm. Gửi tất cả tình yêu đến bạn."
@@ -853,6 +1098,28 @@
 
         // Get current language from localStorage or default to 'en'
         let currentLanguage = localStorage.getItem('language') || 'vi';
+
+        // Function to open modal
+        function openModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close modal
+        function closeModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
 
         // Function to change language
         function changeLanguage(lang) {
