@@ -40,4 +40,4 @@ SITE_URL=https://example.com BASE_PATH=/ CUSTOM_DOMAIN=example.com npm run build
 SITE_URL=https://example.com BASE_PATH=/ CUSTOM_DOMAIN=example.com npm test
 ```
 
-Keep canonical metadata, generated sitemap, robots, assets, and optional CNAME consistent by using the same settings for build and tests. GitHub CI intentionally validates the default project preview; deployment reads repository variables.
+Keep canonical metadata, generated sitemap, robots, assets, and optional CNAME consistent by using the same settings for build and tests. Pull request CI validates the default root site; deployment reads repository variables and validates the configured destination before publishing.

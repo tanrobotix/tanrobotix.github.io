@@ -8,3 +8,8 @@ prompt.md
 docs/DESIGN_SPEC.md
 test-results
 playwright-report
+# Archived Hexo content is not part of the Astro site.
+_config*.yml
+scaffolds/
+source/
+themes/

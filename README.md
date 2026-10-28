@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open `http://127.0.0.1:4321`. Development and preview bind to `0.0.0.0:4321` and use the root path by default. The GitHub Pages deployment workflow explicitly sets `/tantnd/` for the project preview; custom domains use `/`. No deployment is implied by these build settings.
+Open `http://127.0.0.1:4321`. Development, preview, and the GitHub Pages deployment use the root path `/` for `tanrobotix.github.io`. Deployments read the optional `SITE_URL`, `BASE_PATH`, and `CUSTOM_DOMAIN` repository Actions variables.
 
 ```sh
 npm run check          # Astro and strict TypeScript
@@ -40,7 +40,7 @@ Local browser tests use installed Google Chrome and an isolated production previ
 
 See [customization](docs/CUSTOMIZATION.md) and [domain/deployment setup](docs/DOMAIN_SETUP.md). Unknown contact URLs and dates are omitted. No fake articles or public project links are included. Provide verified email, GitHub, and LinkedIn links before making contact methods visible.
 
-Pull requests and pushes to `main` run validation. Publishing requires explicitly running the separate **Deploy GitHub Pages** workflow. No deployment or external account changes have been performed.
+Pull requests and pushes to `main` run **Validate portfolio**. Pushes to `main` also run **Deploy GitHub Pages**, which validates formatting, lint, types, output, publishing behavior, and browser checks before uploading `dist/` and deploying. You can also run either workflow manually. In repository **Settings → Pages**, set **Source** to **GitHub Actions**; branch publishing runs Jekyll and cannot build this Astro site.
 
 The implementation follows `prompt.md`. `docs/DESIGN_SPEC.md` was empty at implementation time and remains untouched. Third-party fonts are self-hosted through Fontsource under their bundled open font licenses.
 

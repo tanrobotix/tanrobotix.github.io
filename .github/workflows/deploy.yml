@@ -1,6 +1,7 @@
 name: Deploy GitHub Pages
-# A deliberate manual run is required. Ordinary pushes only validate.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -12,18 +13,21 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SITE_URL: ${{ vars.SITE_URL || 'https://tanrobotix.github.io' }}
-      BASE_PATH: ${{ vars.BASE_PATH || '/tantnd/' }}
+      BASE_PATH: ${{ vars.BASE_PATH || '/' }}
       CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version-file: .nvmrc
           cache: npm
       - run: npm ci
       - run: npm run format:check
       - run: npm run validate
-      - uses: actions/upload-pages-artifact@v3
+      - run: npm run test:publishing
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
   deploy:

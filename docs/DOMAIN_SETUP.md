@@ -1,15 +1,15 @@
 # GitHub Pages and is-a.dev Setup
 
-The prepared architecture is Astro static build → GitHub Actions → GitHub Pages → optional custom domain. Nothing has been pushed, published, registered, or changed in an external account.
+The deployment architecture is Astro static build → GitHub Actions → GitHub Pages → optional custom domain.
 
-## 1. Publish a Pages preview after approval
+## 1. Publish the GitHub Pages site
 
-1. Confirm the intended repository owner/name. The deployment workflow defaults assume `tanrobotix/tantnd`, with origin `https://tanrobotix.github.io` and base `/tantnd/`. Change the repository Actions variables `SITE_URL` and `BASE_PATH` if the destination differs. A user site repository (`OWNER.github.io`) uses `/`. Local development and preview default to the root path `/` on `0.0.0.0:4321`.
-2. This working directory initially had no Git metadata. Initialize Git and configure the verified remote if needed. Push the reviewed code only after approval. In repository Settings → Pages, select **GitHub Actions** as the source.
-3. Run **Deploy GitHub Pages** manually from Actions. This is the publication step. The build validates and uploads `dist/`; only the deployment job has `pages: write` and `id-token: write`. Optionally require reviewers on the `github-pages` environment.
-4. Verify the real preview URL and assets before requesting a custom domain. Push and PR workflows validate only; they do not publish.
+1. This repository is `tanrobotix/tanrobotix.github.io`, a user site. The deployment defaults are `SITE_URL=https://tanrobotix.github.io` and `BASE_PATH=/`. Remove any old `/tantnd/` override from the repository Actions variables. Local development and preview also use `/` on `0.0.0.0:4321`.
+2. In repository **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**. Do not use **Deploy from a branch**: that invokes Jekyll against the archived Hexo configuration and fails with `The mango theme could not be found`.
+3. Push the reviewed changes to `main`, or run **Deploy GitHub Pages** manually from Actions. The build runs all validation and browser checks before uploading the generated `dist/` artifact. Only the deployment job has `pages: write` and `id-token: write`. Pull requests run validation without publishing.
+4. Verify `https://tanrobotix.github.io/` and its assets. The old Hexo workflow has been removed; the Astro deployment is the only publishing workflow.
 
-The workflow follows the [Astro Pages guidance](https://docs.astro.build/en/guides/deploy/github/) and uses a deliberate manual trigger.
+The workflow follows the [Astro Pages guidance](https://docs.astro.build/en/guides/deploy/github/). **Deploy GitHub Pages** must complete successfully before the new site is live; local builds do not change repository settings or publish the site.
 
 ## 2. Check availability and propose registration
 
