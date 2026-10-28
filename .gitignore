@@ -3,6 +3,7 @@ dist/
 .astro/
 .env
 .env.*
+.codex*
 !.env.example
 playwright-report/
 test-results/
