@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Page not found — Tan To" noindex>
+  <main class="not-found">
+    <p>404 / PAGE NOT FOUND</p>
+    <h1>A missing connection.</h1>
+    <p>This page may have moved, or the address may be incomplete.</p>
+    <a href={import.meta.env.BASE_URL}>Return to the portfolio ↗</a>
+  </main>
+</Layout>
+<style>
+  .not-found {
+    max-width: 64rem;
+    margin: 15vh auto;
+    padding: 2rem;
+  }
+  h1 {
+    font:
+      500 clamp(3rem, 8vw, 7rem)/1 "Inter Tight Variable",
+      sans-serif;
+    letter-spacing: -0.05em;
+    margin-block: 2rem;
+  }
+  a {
+    display: inline-block;
+    margin-top: 2rem;
+    text-decoration: underline;
+  }
+</style>

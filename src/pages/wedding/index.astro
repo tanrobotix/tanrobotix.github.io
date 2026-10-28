@@ -1,0 +1,30 @@
+---
+import invitation from "../../components/wedding/Invitation.html?raw";
+import "@fontsource-variable/playfair-display";
+import "@fontsource-variable/raleway";
+import "@fontsource/great-vibes/400.css";
+import "../../styles/wedding.css";
+
+// Keep the invitation's document and CSS independent from the portfolio layout.
+// Prefix local assets explicitly so both /wedding and /wedding/ work correctly,
+// including a configured GitHub Pages repository base path.
+const assetBase = `${import.meta.env.BASE_URL}wedding/`;
+const document = invitation.replaceAll('src="img/', `src="${assetBase}img/`);
+const head = document.match(/<head>([\s\S]*?)<\/head>/i)?.[1];
+const body = document.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1];
+if (!head || !body)
+  throw new Error("Wedding invitation must contain a complete head and body.");
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <Fragment set:html={head} />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={new URL(assetBase, Astro.site)} />
+    <link rel="icon" type="image/svg+xml" href={`${assetBase}favicon.svg`} />
+  </head>
+  <body class="bg-white">
+    <Fragment set:html={body} />
+  </body>
+</html>

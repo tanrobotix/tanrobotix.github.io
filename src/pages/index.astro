@@ -1,0 +1,22 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Portfolio from "../components/Portfolio.astro";
+
+const articles = (
+  await getCollection(
+    "notes",
+    ({ data }) => !data.draft && data.published <= new Date(),
+  )
+).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+const notes = articles.map(({ id, data }) => ({
+  title: data.title,
+  description: data.description,
+  href: `${import.meta.env.BASE_URL}notes/${id}/`,
+  date: data.published.toISOString().slice(0, 10),
+}));
+---
+
+<Layout>
+  <Portfolio notes={notes} />
+</Layout>

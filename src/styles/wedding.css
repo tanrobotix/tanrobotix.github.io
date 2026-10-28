@@ -1,0 +1,113 @@
+@import "tailwindcss" source(none);
+@source "../components/wedding/Invitation.html";
+
+/* Preserve the original Tailwind 3 opacity utilities in the static v4 build. */
+nav.bg-white.bg-opacity-90 {
+  background-color: rgb(255 255 255 / 90%);
+}
+.bg-black.bg-opacity-30 {
+  background-color: rgb(0 0 0 / 30%);
+}
+/* Original component styles must not override positioning/readability utilities. */
+.slideshow-container.absolute {
+  position: absolute;
+}
+.countdown-label.text-white {
+  color: white;
+}
+html {
+  scroll-padding-top: 7rem;
+}
+body {
+  margin: 0;
+}
+button,
+a,
+iframe {
+  -webkit-tap-highlight-color: transparent;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--color-navy);
+  outline-offset: 4px;
+}
+.dot:focus-visible,
+.slideshow-toggle:focus-visible {
+  outline-color: white;
+}
+.slide-dots {
+  align-items: center;
+}
+.dot {
+  position: relative;
+  flex: none;
+  padding: 0;
+}
+.dot::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+}
+.slideshow-toggle {
+  color: white;
+  background: transparent;
+  border: 1px solid rgb(255 255 255 / 60%);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font: 12px/1 sans-serif;
+  margin-left: 8px;
+  flex: none;
+  cursor: pointer;
+}
+.modal-content {
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.modal-close {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  line-height: 1;
+}
+@media (max-width: 767px) {
+  nav > div {
+    gap: 0.75rem;
+  }
+  nav .btn-champagne {
+    padding-inline: 0.875rem;
+    font-size: 0.75rem;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  nav .flex.items-center.gap-4 {
+    gap: 0.5rem;
+  }
+  nav .lang-btn {
+    padding-inline: 0.5rem;
+  }
+  #events .flex.items-center.md\:flex-row {
+    width: 100%;
+  }
+  #events .md\:w-1\/2:not(.hidden) {
+    width: 100%;
+    min-width: 0;
+  }
+  #hero .countdown-label {
+    font-size: 0.7rem;
+    letter-spacing: 0;
+  }
+  .slide-dots {
+    gap: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

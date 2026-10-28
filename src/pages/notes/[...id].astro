@@ -1,0 +1,129 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const notes = await getCollection(
+    "notes",
+    ({ data }) => !data.draft && data.published <= new Date(),
+  );
+  return notes.map((note) => ({ params: { id: note.id }, props: { note } }));
+}
+interface Props {
+  note: CollectionEntry<"notes">;
+}
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+
+<Layout
+  title={`${note.data.title} — Tan To`}
+  description={note.data.description}
+  article
+>
+  <a href="#article" class="skip-link">
+    Skip to article
+  </a>
+  <header class="article-nav page-shell">
+    <a href={import.meta.env.BASE_URL} aria-label="Tan To home">
+      TAN TO.
+    </a>
+    <a href={`${import.meta.env.BASE_URL}#notes`}>← Engineering notes</a>
+  </header>
+  <main id="article" class="article-body page-shell" tabindex="-1">
+    <p class="eyebrow">
+      ENGINEERING NOTES /{" "}
+      <time datetime={note.data.published.toISOString()}>
+        {note.data.published.toISOString().slice(0, 10)}
+      </time>
+    </p>
+    <h1>{note.data.title}</h1>
+    <p class="article-description">{note.data.description}</p>
+    <article class="prose">
+      <Content />
+    </article>
+    <a class="article-back" href={import.meta.env.BASE_URL}>
+      ← Back to the portfolio
+    </a>
+  </main>
+</Layout>
+<style>
+  .page-shell {
+    width: min(100% - 3rem, 76rem);
+    margin-inline: auto;
+  }
+  .article-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 2rem;
+    border-bottom: 1px solid var(--divider, #d8d8d2);
+  }
+  .article-body {
+    max-width: 52rem;
+    padding-block: 5rem;
+  }
+  .eyebrow {
+    font:
+      0.7rem "IBM Plex Mono",
+      monospace;
+    letter-spacing: 0.08em;
+  }
+  h1 {
+    font:
+      500 clamp(2.8rem, 7vw, 5rem)/1.05 "Inter Tight Variable",
+      sans-serif;
+    letter-spacing: -0.045em;
+    margin-block: 2rem;
+    overflow-wrap: anywhere;
+  }
+  .article-description {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+  }
+  .prose {
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+  }
+  .prose :global(h2),
+  .prose :global(h3) {
+    margin-top: 2.5rem;
+    line-height: 1.2;
+  }
+  .prose :global(p),
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-block: 1.25rem;
+  }
+  .prose :global(ul) {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+  .prose :global(ol) {
+    list-style: decimal;
+    padding-left: 1.5rem;
+  }
+  .prose :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .prose :global(pre) {
+    overflow-x: auto;
+    padding: 1.25rem;
+  }
+  .prose :global(img) {
+    max-width: 100%;
+    height: auto;
+  }
+  .article-back {
+    display: inline-block;
+    margin-top: 3rem;
+  }
+  @media (max-width: 480px) {
+    .article-body {
+      padding-block: 3rem;
+    }
+  }
+</style>

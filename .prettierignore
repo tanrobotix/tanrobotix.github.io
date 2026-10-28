@@ -1,0 +1,10 @@
+node_modules
+dist
+.astro
+package-lock.json
+AGENTS.md
+prompt.md
+.codex
+docs/DESIGN_SPEC.md
+test-results
+playwright-report
